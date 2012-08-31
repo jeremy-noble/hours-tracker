@@ -1,11 +1,5 @@
 <%= form_for [@user, @time_sheet, @entry], :html => { :class => 'form-horizontal' } do |f| %>
   <div class="control-group">
-    <%= f.label :time_sheet_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :time_sheet_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
     <%= f.label :date, :class => 'control-label' %>
     <div class="controls">
       <%= f.datetime_select :date, :class => 'datetime_select' %>
@@ -26,7 +20,7 @@
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%#= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                entries_path, :class => 'btn' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                user_time_sheet_entries_path, :class => 'btn' %>
   </div>
 <% end %>

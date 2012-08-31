@@ -84,7 +84,7 @@ class EntriesController < ApplicationController
 
   # DELETE /entries/1
   # DELETE /entries/1.json
-  def @time_sheet.entries
+  def destroy
     @entry = @time_sheet.entries.find(params[:id])
     @entry.destroy
 
