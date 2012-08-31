@@ -1,7 +1,9 @@
 Hours::Application.routes.draw do
-  
+
   resources :users do
-    resources :time_sheets
+    resources :time_sheets do
+      resources :entries
+    end
   end
 
   root :to => 'users#index'
