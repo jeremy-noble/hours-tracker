@@ -12,4 +12,9 @@ class TimeSheet < ActiveRecord::Base
     return total_hours.to_s
     end
   end
+
+  def nice_date
+    self.created_at.strftime("%b %e, %Y %l:%M%p")
+  end
+
 end
