@@ -1,6 +1,6 @@
 <%- model_class = Entry -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %> for <%= link_to "Time Sheet ##{@time_sheet.id}", user_time_sheets_path(@user) %></h1>
+  <h1>Hours for <%= link_to "Time Sheet ##{@time_sheet.id}", user_time_sheets_path(@user) %></h1>
   <h2>Total Hours: <%= @time_sheet.total_hours %></h2>
   <h3>Paid: <%= yesno @time_sheet.paid %></h3>
 </div>
@@ -16,11 +16,11 @@
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
-        <td><%= entry.nice_date %></td>
+        <td><%= nice_date entry.created_at %></td>
         <td><%= entry.hours %></td>
         <td><%= entry.project %></td>
         <td>
-          <%= link_to t('.view_entry', :default => t("helpers.links.view_entry")),
+          <%#= link_to t('.view_entry', :default => t("helpers.links.view_entry")),
                       user_time_sheet_entry_path(@user, @time_sheet, entry), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_time_sheet_entry_path(@user, @time_sheet, entry), :class => 'btn btn-mini' %>

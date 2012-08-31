@@ -8,8 +8,4 @@ class Entry < ActiveRecord::Base
 
   default_scope :order => 'date desc'
 
-  def nice_date
-    self.created_at.strftime("%b %e, %Y")
-  end
-
 end

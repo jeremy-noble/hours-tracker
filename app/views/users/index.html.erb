@@ -14,9 +14,9 @@
       <tr>
         <td><%= user.name %></td>
         <td>
-          <%= link_to t('.view_user', :default => t("helpers.links.view_user")),
+          <%#= link_to t('.view_user', :default => t("helpers.links.view_user")),
                       user_path(user), :class => 'btn btn-mini' %>
-          <%= link_to t('.view_time_sheets', :default => t("helpers.links.view_time_sheets")),
+          <%= link_to t('.view_all_time_sheets', :default => t("helpers.links.view_all_time_sheets")),
                       user_time_sheets_path(user), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_path(user), :class => 'btn btn-mini' %>
