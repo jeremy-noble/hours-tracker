@@ -1,25 +1,15 @@
-<%= form_for(@time_sheet) do |f| %>
-  <% if @time_sheet.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@time_sheet.errors.count, "error") %> prohibited this time_sheet from being saved:</h2>
+<%= form_for [@user, @time_sheet], :html => { :class => 'form-horizontal' } do |f| %>
 
-      <ul>
-      <% @time_sheet.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <div class="control-group">
+    <%= f.label :paid, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.check_box :paid, :class => 'check_box' %>
     </div>
-  <% end %>
+  </div>
 
-  <div class="field">
-    <%= f.label :user_id %><br />
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :paid %><br />
-    <%= f.check_box :paid %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                user_time_sheets_path(@user), :class => 'btn' %>
   </div>
 <% end %>

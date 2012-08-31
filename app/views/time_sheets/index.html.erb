@@ -1,25 +1,36 @@
-<h1>Listing time_sheets</h1>
-
-<table>
-  <tr>
-    <th>User</th>
-    <th>Paid</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @time_sheets.each do |time_sheet| %>
-  <tr>
-    <td><%= time_sheet.user_id %></td>
-    <td><%= time_sheet.paid %></td>
-    <td><%= link_to 'Show', time_sheet %></td>
-    <td><%= link_to 'Edit', edit_time_sheet_path(time_sheet) %></td>
-    <td><%= link_to 'Destroy', time_sheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%- model_class = TimeSheet -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:user_name) %></th>
+      <th><%= model_class.human_attribute_name(:paid) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @time_sheets.each do |time_sheet| %>
+      <tr>
+        <td><%= link_to l(time_sheet.created_at), [@user, time_sheet] %></td>
+        <td><%= link_to @user.name, @user %></td>
+        <td><%= time_sheet.paid %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_user_time_sheet_path(@user, time_sheet), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      user_time_sheet_path(@user, time_sheet),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Time sheet', new_time_sheet_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_user_time_sheet_path,
+            :class => 'btn btn-primary' %>
