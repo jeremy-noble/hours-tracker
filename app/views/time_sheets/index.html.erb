@@ -5,6 +5,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th><%= model_class.human_attribute_name(:time_sheet_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%= model_class.human_attribute_name(:total_hours) %></th>
       <th><%= model_class.human_attribute_name(:paid) %></th>
@@ -14,6 +15,7 @@
   <tbody>
     <% @time_sheets.each do |time_sheet| %>
       <tr>
+        <td># <%= time_sheet.id %></td>
         <td><%= time_sheet.nice_date %></td>
         <td><%= time_sheet.total_hours %></td>
         <td><%= time_sheet.paid %></td>

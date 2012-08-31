@@ -3,6 +3,10 @@ class TimeSheet < ActiveRecord::Base
   belongs_to :user
   has_many :entries
 
+  validates :user_id, presence: true
+
+  default_scope :order => 'created_at desc'
+
   def total_hours
     total_hours = 0
     if self.entries
