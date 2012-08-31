@@ -7,6 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%= model_class.human_attribute_name(:user_name) %></th>
+      <th><%= model_class.human_attribute_name(:total_hours) %></th>
       <th><%= model_class.human_attribute_name(:paid) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -16,8 +17,11 @@
       <tr>
         <td><%= link_to l(time_sheet.created_at), [@user, time_sheet] %></td>
         <td><%= link_to @user.name, @user %></td>
+        <td><%= time_sheet.total_hours %></td>
         <td><%= time_sheet.paid %></td>
         <td>
+          <%= link_to t('.view_entries', :default => t("helpers.links.view_entries")),
+                      user_time_sheet_entries_path(@user, time_sheet), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_time_sheet_path(@user, time_sheet), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
