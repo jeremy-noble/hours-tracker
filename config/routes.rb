@@ -1,5 +1,10 @@
 Hours::Application.routes.draw do
-  resources :users
+  
+  resources :users do
+    resources :time_sheets
+  end
+
+  root :to => 'users#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @time_sheet.user_id %>
+</p>
+
+<p>
+  <b>Paid:</b>
+  <%= @time_sheet.paid %>
+</p>
+
+
+<%= link_to 'Edit', edit_time_sheet_path(@time_sheet) %> |
+<%= link_to 'Back', time_sheets_path %>
