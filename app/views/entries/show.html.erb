@@ -7,7 +7,7 @@
   <dt><strong><%= model_class.human_attribute_name(:time_sheet_id) %>:</strong></dt>
   <dd><%= @entry.time_sheet_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
-  <dd><%= @entry.date %></dd>
+  <dd><%= nice_date @entry.date %></dd>
   <dt><strong><%= model_class.human_attribute_name(:hours) %>:</strong></dt>
   <dd><%= @entry.hours %></dd>
   <dt><strong><%= model_class.human_attribute_name(:project) %>:</strong></dt>
@@ -15,7 +15,7 @@
 </dl>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back_to_entries")),
+  <%= link_to t('.back_to_hours', :default => t("helpers.links.back_to_hours")),
               user_time_sheet_entries_path, :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_user_time_sheet_entry_path(@user, @time_sheet, @entry), :class => 'btn' %>
