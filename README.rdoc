@@ -1,3 +1,16 @@
 == Hours Tracker App
 
-A simple hourse tracker that lets you add users and track their hours worked per day.
+A simple hours tracker that lets you add users and track their hours worked per day.
+
+# Features
+
+* Allows you to add users, and give each user a time sheet. 
+* Users can then add hours to each time sheet. 
+* The total hours for each time sheet are calculated automatically. 
+* When payroll time comes around the time sheets can be marked as "paid". 
+
+# Planned Features #
+* Allow entry of a pay rate for each project. (for example worked 5 hours @ $60/hr)
+* Testing with rspec
+* ajax?
+* Authentication: users should log in and out for their hours with a password. Only "admins" should be able to see all users and mark them as paid.
