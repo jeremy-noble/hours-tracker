@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
-  attr_accessible :name
-  # has_many :time_sheets
+  attr_accessible :name, :id
+  has_many :time_sheets
+
+  validates :name, presence: true, length: { minimum: 3 }
+
 end
