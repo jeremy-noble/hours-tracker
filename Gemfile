@@ -27,6 +27,7 @@ group :development, :test do
   gem 'guard-spork'
   gem 'spork'
   gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
 end
 
 group :test do

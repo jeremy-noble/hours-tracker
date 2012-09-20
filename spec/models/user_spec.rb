@@ -1,6 +1,6 @@
 require 'spec_helper'
 describe User do
-  let(:user) { User.new(name: "Jeremy Kay") }
+  let(:user) { FactoryGirl.create(:user) }
 
   subject { user }
 

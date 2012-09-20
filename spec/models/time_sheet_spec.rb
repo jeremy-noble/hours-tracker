@@ -1,7 +1,6 @@
 require 'spec_helper'
 describe TimeSheet do
-  let(:user) { User.create(name: "Jeremy Kay") }
-  let(:time_sheet) { user.time_sheets.create } 
+  let(:time_sheet) { FactoryGirl.create(:time_sheet) }
 
   subject { time_sheet }
 
@@ -14,14 +13,13 @@ describe TimeSheet do
     end
     it "should NOT allow access to user_id" do
       expect do
-        TimeSheet.new(user_id: user.id)
+        TimeSheet.new(user_id: 1)
       end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end    
   end
 
   it { should belong_to(:user) }
   it { should have_many(:entries) }
-  its(:user) { should == user }
 
   it { should be_valid }
 
