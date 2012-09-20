@@ -34,7 +34,18 @@ describe TimeSheet do
   end
 
   describe "should be ordered by created_at desc" do
-    pending "should use factory girl to create some records with created_at in ASC order, then should check that they come back in DESC order"
+    user_temp =  FactoryGirl.create(:user)
+
+    let!(:older_time_sheet) do 
+      FactoryGirl.create(:time_sheet, user_id: user_temp.id, created_at: 1.day.ago)
+    end
+    let!(:newer_time_sheet) do
+      FactoryGirl.create(:time_sheet, user_id: user_temp.id, created_at: 1.hour.ago)
+    end
+
+    it "should have the right time sheets in the right order" do
+      user_temp.time_sheets.should == [newer_time_sheet, older_time_sheet]
+    end
   end
 
   describe "total_hours should add up all the hours for a time sheet's entries" do

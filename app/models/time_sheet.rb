@@ -7,7 +7,7 @@ class TimeSheet < ActiveRecord::Base
 
   after_initialize :default_values
 
-  # default_scope :order => 'created_at desc'
+  default_scope :order => 'created_at desc'
 
   # def total_hours
   #   total_hours = 0

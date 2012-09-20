@@ -6,6 +6,6 @@ class Entry < ActiveRecord::Base
   validates :hours, presence: true, numericality: true
   validates :time_sheet_id, presence: true
 
-  # default_scope :order => 'date desc'
+  default_scope :order => 'date DESC'
 
 end

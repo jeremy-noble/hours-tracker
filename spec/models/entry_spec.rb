@@ -31,8 +31,19 @@ describe Entry do
     it { should_not be_valid }
   end
 
-  describe "should be ordered by created_at desc" do
-    pending "should use factory girl to create some records with created_at in ASC order, then should check that they come back in DESC order"
+  describe "should be ordered by date DESC" do
+    time_sheet_temp =  FactoryGirl.create(:time_sheet)
+
+    let!(:older_entry) do 
+      FactoryGirl.create(:entry, time_sheet_id: time_sheet_temp.id, date: 1.year.ago)
+    end
+    let!(:newer_entry) do
+      FactoryGirl.create(:entry, time_sheet_id: time_sheet_temp.id, date: 1.hour.ago)
+    end
+
+    it "should have the right time sheets in the right order" do
+      time_sheet_temp.entries.should == [newer_entry, older_entry]
+    end
   end  
 
   describe "accessible attributes" do
