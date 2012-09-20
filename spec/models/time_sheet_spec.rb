@@ -1,11 +1,9 @@
 require 'spec_helper'
 describe TimeSheet do
-  before do
-    @user = User.create(name: "Jeremy Kay")
-    @time_sheet = @user.time_sheets.create 
-  end
+  let(:user) { User.create(name: "Jeremy Kay") }
+  let(:time_sheet) { user.time_sheets.create } 
 
-  subject { @time_sheet }
+  subject { time_sheet }
 
   it { should respond_to(:paid) }
   it { should respond_to(:user_id) }
@@ -16,24 +14,25 @@ describe TimeSheet do
     end
     it "should NOT allow access to user_id" do
       expect do
-        TimeSheet.new(user_id: @user.id)
+        TimeSheet.new(user_id: user.id)
       end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
     end    
   end
 
   it { should belong_to(:user) }
   it { should have_many(:entries) }
+  its(:user) { should == user }
 
   it { should be_valid }
 
   describe "when user_id is not present" do
-    before { @time_sheet.user_id = nil }
+    before { time_sheet.user_id = nil }
     it { should_not be_valid }
   end
   
   describe "by default paid should be false and not nil" do
-    it { @time_sheet.paid.should be_false }
-    it { @time_sheet.paid.should_not be_nil }
+    it { time_sheet.paid.should be_false }
+    it { time_sheet.paid.should_not be_nil }
   end
 
   describe "should be ordered by created_at desc" do

@@ -1,8 +1,8 @@
 require 'spec_helper'
 describe User do
-  before { @user = User.new(name: "Jeremy Kay") }
+  let(:user) { User.new(name: "Jeremy Kay") }
 
-  subject { @user }
+  subject { user }
 
   it { should respond_to(:name) }
   it { should respond_to(:time_sheets) }
@@ -11,12 +11,12 @@ describe User do
   it { should be_valid }
 
   describe "when name is not present" do
-    before { @user.name = " " }
+    before { user.name = " " }
     it { should_not be_valid }
   end
 
   describe "when name is too short" do
-    before { @user.name = "a" * 2 }
+    before { user.name = "a" * 2 }
     it { should be_invalid }
   end
 
