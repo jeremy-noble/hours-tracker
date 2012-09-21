@@ -4,20 +4,20 @@ describe User do
 
   subject { user }
 
+  it { should respond_to(:id) }
   it { should respond_to(:name) }
-  it { should respond_to(:time_sheets) }
+
+  it { should allow_mass_assignment_of(:name) }
+  it { should_not allow_mass_assignment_of(:id) }
+  
   it { should have_many(:time_sheets) }
 
+  it { should validate_presence_of(:name) }
+  it { should ensure_length_of(:name).
+                  is_at_least(3).
+                  is_at_most(50) }
+
+
   it { should be_valid }
-
-  describe "when name is not present" do
-    before { user.name = " " }
-    it { should_not be_valid }
-  end
-
-  describe "when name is too short" do
-    before { user.name = "a" * 2 }
-    it { should be_invalid }
-  end
 
 end

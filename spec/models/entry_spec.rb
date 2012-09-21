@@ -4,10 +4,18 @@ describe Entry do
 
   subject { entry }
 
+  it { should respond_to(:id) }
   it { should respond_to(:date) }
   it { should respond_to(:hours) }
   it { should respond_to(:project) }
+
+  it { should allow_mass_assignment_of(:date) }
+  it { should allow_mass_assignment_of(:hours) }
+  it { should allow_mass_assignment_of(:project) }
+  it { should_not allow_mass_assignment_of(:time_sheet_id) }
+
   it { should belong_to(:time_sheet) }
+  
   it { should validate_presence_of(:date) }
   it { should validate_presence_of(:hours) }
   it { should validate_numericality_of(:hours) }
@@ -19,9 +27,12 @@ describe Entry do
     it { should_not allow_value(-0.01).for(:hours) }
     it { should_not allow_value(0).for(:hours) }
     it { should_not allow_value(24).for(:hours) }
+    # minimum = BigDecimal.new('0')
+    # maximum = BigDecimal.new('24')
+    # it { should ensure_inclusion_of(:hours).in_range(minimum...maximum).with_low_message("blah").with_high_message("hours must be less than 24 (#{BigDecimal.new('24')})") }
 
   it { should validate_presence_of(:time_sheet_id) }
-  it { should_not allow_mass_assignment_of(:time_sheet_id) }
+  
 
   it { should be_valid }
 
