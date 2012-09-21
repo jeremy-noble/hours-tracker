@@ -12,8 +12,8 @@ FactoryGirl.define do
   end
 
   factory :entry do
-    date  Date.today
-    hours 5
+    sequence(:date) { |i| i.day.ago }
+    sequence(:hours) { |i| rand(0..24) + rand }
     association :time_sheet
   end
 

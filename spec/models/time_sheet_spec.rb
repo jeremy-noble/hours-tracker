@@ -49,7 +49,8 @@ describe TimeSheet do
   end
 
   describe "total_hours should add up all the hours for a time sheet's entries" do
-    pending
+    100.times { FactoryGirl.create(:time_sheet) }
+
   end
 
 end
