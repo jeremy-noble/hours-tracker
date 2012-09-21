@@ -34,10 +34,12 @@ describe TimeSheet do
     end
   end
 
-  describe "total_hours should add up all the hours for a time sheet's entries" do
-    pending
-    # 100.times { FactoryGirl.create(:time_sheet) }
+  it " should return the correct total_hours a time sheet's entries" do
+    entry_1 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 3)
+    entry_2 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 11)
+    entry_3 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 3.32)
 
+    time_sheet.total_hours.should == (entry_1.hours + entry_2.hours + entry_3.hours).to_s
   end
 
 end

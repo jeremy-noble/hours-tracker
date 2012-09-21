@@ -9,15 +9,15 @@ class TimeSheet < ActiveRecord::Base
 
   default_scope :order => 'created_at desc'
 
-  # def total_hours
-  #   total_hours = 0
-  #   if self.entries
-  #     self.entries.each do |entry|
-  #       total_hours = total_hours + entry.hours
-  #     end
-  #   return total_hours.to_s
-  #   end
-  # end
+  def total_hours
+    total_hours = 0
+    if self.entries
+      self.entries.each do |entry|
+        total_hours = total_hours + entry.hours
+      end
+    return total_hours.to_s
+    end
+  end
 
   private
     def default_values
