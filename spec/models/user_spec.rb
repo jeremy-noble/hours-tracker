@@ -6,6 +6,7 @@ describe User do
 
   it { should respond_to(:id) }
   it { should respond_to(:name) }
+  it { should respond_to(:default_hourly_rate) }
 
   it { should allow_mass_assignment_of(:name) }
   it { should_not allow_mass_assignment_of(:id) }
@@ -17,6 +18,10 @@ describe User do
                   is_at_least(3).
                   is_at_most(50) }
   it { should validate_uniqueness_of(:name) }
+  it { should validate_numericality_of(:default_hourly_rate) }
+  it { should have_db_column(:default_hourly_rate).
+          of_type(:decimal).
+          with_options(:precision => 8, :scale => 2) }
 
 
   it { should be_valid }

@@ -8,10 +8,12 @@ describe Entry do
   it { should respond_to(:date) }
   it { should respond_to(:hours) }
   it { should respond_to(:project) }
+  it { should respond_to(:hourly_rate) }
 
   it { should allow_mass_assignment_of(:date) }
   it { should allow_mass_assignment_of(:hours) }
   it { should allow_mass_assignment_of(:project) }
+  it { should allow_mass_assignment_of(:hourly_rate) }
   it { should_not allow_mass_assignment_of(:time_sheet_id) }
 
   it { should belong_to(:time_sheet) }
@@ -20,9 +22,13 @@ describe Entry do
   it { should validate_presence_of(:date) }
   it { should validate_presence_of(:hours) }
   it { should validate_numericality_of(:hours) }
+  it { should validate_numericality_of(:hourly_rate) }
   it { should have_db_column(:hours).
           of_type(:decimal).
           with_options(:precision => 4, :scale => 2) }
+  it { should have_db_column(:hourly_rate).
+          of_type(:decimal).
+          with_options(:precision => 8, :scale => 2) }
   # test boundaries for :hours. should be greater than 0 and less than 24
     it { should_not allow_value(-0.01).for(:hours) }
     it { should_not allow_value(0).for(:hours) }
@@ -39,15 +45,15 @@ describe Entry do
     end
 
     let!(:older_entry) do 
-      FactoryGirl.create(:entry, time_sheet_id: @time_sheet.id, date: 1.year.ago)
+      FactoryGirl.create(:entry, time_sheet_id: @time_sheet.id, date: 1.year.ago, hours: 5)
     end
     let!(:newer_entry) do
-      FactoryGirl.create(:entry, time_sheet_id: @time_sheet.id, date: 1.hour.ago)
+      FactoryGirl.create(:entry, time_sheet_id: @time_sheet.id, date: 1.hour.ago, hours: 5)
     end
 
-    it "should have the right time sheets in the right order" do
-      @time_sheet.entries.should == [newer_entry, older_entry]
+    it "should have the right entries in the right order" do     
+     @time_sheet.entries.should == [newer_entry, older_entry]
     end
-  end  
+  end 
 
 end

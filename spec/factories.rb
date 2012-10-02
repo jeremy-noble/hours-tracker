@@ -13,7 +13,7 @@ FactoryGirl.define do
 
   factory :entry do
     sequence(:date) { |i| i.day.ago }
-    sequence(:hours) { |i| i }
+    hours 9.5
     association :time_sheet
   end
 
