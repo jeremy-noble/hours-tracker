@@ -18,6 +18,7 @@ describe User do
                   is_at_least(3).
                   is_at_most(50) }
   it { should validate_uniqueness_of(:name) }
+  it { should validate_presence_of(:default_hourly_rate) }
   it { should validate_numericality_of(:default_hourly_rate) }
   it { should have_db_column(:default_hourly_rate).
           of_type(:decimal).

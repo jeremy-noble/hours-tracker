@@ -10,7 +10,7 @@ user_names = ['George', 'Jerry', 'Elaine', 'Kramer', 'Newman']
 
 user_names.each do |name|
 
-  user = User.create(name: name)
+  user = User.create(name: name, default_hourly_rate: 45)
 
   7.times do |i| 
 

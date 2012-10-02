@@ -56,4 +56,38 @@ describe Entry do
     end
   end 
 
+  describe "when created with NO hourly_rate" do
+    before(:each) do
+      @user = FactoryGirl.create(:user, default_hourly_rate: 30)
+      @time_sheet = FactoryGirl.create(:time_sheet, user_id: @user.id)
+      @entry = Entry.new(date: Date.today, hours: 5)
+      @entry.time_sheet_id = @time_sheet.id
+      @entry.hourly_rate = nil
+      @entry.save
+      # @entry = FactoryGirl.create(:entry, time_sheet_id: @time_sheet.id, hourly_rate: nil)
+    end
+    it "should have the user.default_hourly_rate" do
+      # raise @entry.inspect
+      @entry.hourly_rate.should == @user.default_hourly_rate
+    end
+  end
+
+  describe "when created with hourly_rate" do
+    it "should have the hourly rate that was set" do
+      pending
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
 end

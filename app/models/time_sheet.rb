@@ -3,9 +3,9 @@ class TimeSheet < ActiveRecord::Base
   belongs_to :user
   has_many :entries
 
-  validates :user_id, presence: true
-
   after_initialize :default_values
+
+  validates :user_id, presence: true
 
   default_scope :order => 'created_at desc'
 

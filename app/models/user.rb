@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, length: { minimum: 3, maximum: 50 }, 
      :uniqueness => {:case_sensitive => false}
-  validates :default_hourly_rate, numericality: true, allow_blank: true
+  validates :default_hourly_rate, presence: true, numericality: true
 end
