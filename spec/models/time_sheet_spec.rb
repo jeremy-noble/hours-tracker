@@ -10,6 +10,7 @@ describe TimeSheet do
 
   it { should allow_mass_assignment_of(:paid) }
   it { should_not allow_mass_assignment_of(:user_id) }
+  it { should_not allow_mass_assignment_of(:user) }
 
   it { should belong_to(:user) }
   it { should have_many(:entries) }
@@ -20,21 +21,24 @@ describe TimeSheet do
 
 
   describe "should be ordered by created_at desc" do
-    user_temp =  FactoryGirl.create(:user)
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+    end
 
     let!(:older_time_sheet) do 
-      FactoryGirl.create(:time_sheet, user_id: user_temp.id, created_at: 1.day.ago)
+      FactoryGirl.create(:time_sheet, user_id: @user.id, created_at: 1.day.ago)
     end
     let!(:newer_time_sheet) do
-      FactoryGirl.create(:time_sheet, user_id: user_temp.id, created_at: 1.hour.ago)
+      FactoryGirl.create(:time_sheet, user_id: @user.id, created_at: 1.hour.ago)
     end
 
     it "should have the right time sheets in the right order" do
-      user_temp.time_sheets.should == [newer_time_sheet, older_time_sheet]
+      @user.time_sheets.should == [newer_time_sheet, older_time_sheet]
     end
   end
 
-  it " should return the correct total_hours a time sheet's entries" do
+  it "should return the correct total_hours a time sheet's entries" do
+    # is there a better way to do this?
     entry_1 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 3)
     entry_2 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 11)
     entry_3 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 3.32)

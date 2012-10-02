@@ -27,13 +27,13 @@ group :development, :test do
   gem 'guard-spork'
   gem 'spork'
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
 end
 
 group :test do
   gem 'capybara'
   gem 'growl'
   gem 'rb-fsevent', '~> 0.9.1', :require => false
+  gem 'factory_girl_rails'
 end
 
 group :production do

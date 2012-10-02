@@ -16,38 +16,37 @@ describe Entry do
 
   it { should belong_to(:time_sheet) }
   
+  it { should validate_presence_of(:time_sheet_id) }
   it { should validate_presence_of(:date) }
   it { should validate_presence_of(:hours) }
   it { should validate_numericality_of(:hours) }
   it { should have_db_column(:hours).
           of_type(:decimal).
           with_options(:precision => 4, :scale => 2) }
-
-  # is there a better way to test this range?
+  # test boundaries for :hours. should be greater than 0 and less than 24
     it { should_not allow_value(-0.01).for(:hours) }
     it { should_not allow_value(0).for(:hours) }
+    it { should allow_value(0.01).for(:hours) }
+    it { should allow_value(23.99).for(:hours) }
     it { should_not allow_value(24).for(:hours) }
-    # minimum = BigDecimal.new('0')
-    # maximum = BigDecimal.new('24')
-    # it { should ensure_inclusion_of(:hours).in_range(minimum...maximum).with_low_message("blah").with_high_message("hours must be less than 24 (#{BigDecimal.new('24')})") }
-
-  it { should validate_presence_of(:time_sheet_id) }
+    it { should_not allow_value(24.01).for(:hours) }  
   
-
   it { should be_valid }
 
   describe "should be ordered by date DESC" do
-    time_sheet_temp =  FactoryGirl.create(:time_sheet)
+    before(:each) do
+      @time_sheet = FactoryGirl.create(:time_sheet)
+    end
 
     let!(:older_entry) do 
-      FactoryGirl.create(:entry, time_sheet_id: time_sheet_temp.id, date: 1.year.ago)
+      FactoryGirl.create(:entry, time_sheet_id: @time_sheet.id, date: 1.year.ago)
     end
     let!(:newer_entry) do
-      FactoryGirl.create(:entry, time_sheet_id: time_sheet_temp.id, date: 1.hour.ago)
+      FactoryGirl.create(:entry, time_sheet_id: @time_sheet.id, date: 1.hour.ago)
     end
 
     it "should have the right time sheets in the right order" do
-      time_sheet_temp.entries.should == [newer_entry, older_entry]
+      @time_sheet.entries.should == [newer_entry, older_entry]
     end
   end  
 

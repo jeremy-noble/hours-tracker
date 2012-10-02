@@ -16,7 +16,7 @@
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
-        <td><%= nice_date entry.created_at %></td>
+        <td><%= nice_date entry.date %></td>
         <td><%= entry.hours %></td>
         <td><%= entry.project %></td>
         <td>
