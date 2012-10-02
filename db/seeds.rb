@@ -6,21 +6,28 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-user1 = User.create(name: 'Christopher Walken')
+user_names = ['George', 'Jerry', 'Elaine', 'Kramer', 'Newman']
 
-7.times do |i| 
-  time_sheet = TimeSheet.new
-  time_sheet.user_id = user1.id
+user_names.each do |name|
 
-  # mark some of them "paid"
-  if i < 4
-    time_sheet.paid = true
+  user = User.create(name: name)
+
+  7.times do |i| 
+
+    time_sheet = TimeSheet.new
+    time_sheet.user_id = user.id
+
+    # mark some of them "paid"
+    if i < 4
+      time_sheet.paid = true
+    end
+
+    time_sheet.save
+    
+    5.times do |i|
+      time_sheet.entries.create(date: i.days.ago, hours: rand(1..10))
+    end 
+
   end
 
-  time_sheet.save
-  
-  5.times do |i|
-    time_sheet.entries.create(date: i.days.ago, hours: rand(1..10))
-  end
-  
 end
