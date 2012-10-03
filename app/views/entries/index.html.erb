@@ -11,6 +11,7 @@
       <th><%= model_class.human_attribute_name(:date) %></th>
       <th><%= model_class.human_attribute_name(:hours) %></th>
       <th><%= model_class.human_attribute_name(:project) %></th>
+      <th><%= model_class.human_attribute_name(:hourly_rate) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -20,6 +21,7 @@
         <td><%= nice_date entry.date %></td>
         <td><%= entry.hours %></td>
         <td><%= entry.project %></td>
+        <td><%= number_to_currency(entry.hourly_rate) %></td>
         <td>
           <%#= link_to t('.view_entry', :default => t("helpers.links.view_entry")),
                       user_time_sheet_entry_path(@user, @time_sheet, entry), :class => 'btn btn-mini' %>
