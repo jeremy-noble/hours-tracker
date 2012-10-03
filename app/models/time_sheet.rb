@@ -15,7 +15,17 @@ class TimeSheet < ActiveRecord::Base
       self.entries.each do |entry|
         total_hours = total_hours + entry.hours
       end
-    return total_hours.to_s
+    return total_hours
+    end
+  end
+
+  def total_cash
+    total_cash = 0
+    if self.entries
+      self.entries.each do |entry|
+        total_cash = total_cash + (entry.hours * entry.hourly_rate)
+      end
+    return total_cash
     end
   end
 

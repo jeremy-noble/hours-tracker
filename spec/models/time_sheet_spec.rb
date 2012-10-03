@@ -37,13 +37,22 @@ describe TimeSheet do
     end
   end
 
-  it "should return the correct total_hours a time sheet's entries" do
-    # is there a better way to do this?
-    entry_1 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 3)
-    entry_2 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 11)
-    entry_3 = FactoryGirl.create(:entry, time_sheet: time_sheet, hours: 3.32)
+  describe "when there are a few entries" do
+    before(:each) do
+      @user = FactoryGirl.create(:user, default_hourly_rate: 30)
+      @time_sheet = FactoryGirl.create(:time_sheet, user_id: @user.id)     
+      @entry_1 = FactoryGirl.create(:entry, time_sheet: @time_sheet, hours: 3, hourly_rate: 75)
+      @entry_2 = FactoryGirl.create(:entry, time_sheet: @time_sheet, hours: 11) #should get default hourly_rate from user "30"
+      @entry_3 = FactoryGirl.create(:entry, time_sheet: @time_sheet, hours: 3.5, hourly_rate: 60)
+    end
 
-    time_sheet.total_hours.should == (entry_1.hours + entry_2.hours + entry_3.hours).to_s
+    it "should return the correct total_hours" do
+      @time_sheet.total_hours.should == 17.5
+    end
+
+    it "should return the correct total_cash for a time sheet's entries" do
+      @time_sheet.total_cash.should == (75*3) + (11*30) + (60*3.5)
+    end
   end
 
 end
