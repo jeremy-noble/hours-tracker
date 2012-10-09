@@ -10,7 +10,8 @@ user_names = ['George', 'Jerry', 'Elaine', 'Kramer', 'Newman']
 
 user_names.each do |name|
 
-  user = User.create(name: name, default_hourly_rate: 75)
+  user = User.create(name: name, email: "#{name}@nobledesktop.com", 
+    default_hourly_rate: 75, password: 'foobar', password_confirmation: 'foobar')
 
   7.times do |i| 
 
