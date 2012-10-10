@@ -38,11 +38,9 @@ describe User do
     before(:each) do
       email = "jeremy@blah.com"
       @user = FactoryGirl.create(:user, name: "foobar1", email: email)
-      @user_with_same_email = @user.dup
-      @user_with_same_email.email = @user.email.upcase
-      @user_with_same_email.name = "foobar2"
+      @user_with_same_email = FactoryGirl.build(:user, name: "foobar2", email: email.upcase) #also test case sensitivity
     end
-     it "should be invalid" do
+     it "should be invalid regardless of case" do
       @user_with_same_email.should_not be_valid
     end
   end

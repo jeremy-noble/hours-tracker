@@ -180,7 +180,7 @@ DEPENDENCIES
   bcrypt-ruby (= 3.0.1)
   capybara
   coffee-rails (~> 3.2.1)
-  factory_girl_rails
+  factory_girl_rails (~> 4.1.0)
   growl
   guard-rspec
   guard-spork
