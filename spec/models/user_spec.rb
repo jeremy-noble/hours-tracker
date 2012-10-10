@@ -8,10 +8,10 @@ describe User do
   it { should respond_to(:name) }
   it { should respond_to(:email) }
   it { should respond_to(:default_hourly_rate) }
-  # it { should respond_to(:password_digest) }
-  # it { should respond_to(:password) }
-  # it { should respond_to(:password_confirmation) }
-  # it { should respond_to(:authenticate) }
+  it { should respond_to(:password_digest) }
+  it { should respond_to(:password) }
+  it { should respond_to(:password_confirmation) }
+  it { should respond_to(:authenticate) }
 
   it { should allow_mass_assignment_of(:name) }
   it { should_not allow_mass_assignment_of(:id) }
@@ -29,8 +29,9 @@ describe User do
   it { should have_db_column(:default_hourly_rate).
           of_type(:decimal).
           with_options(:precision => 8, :scale => 2) }
-  # it { should validate_presence_of(:password) }
-  # it { should validate_presence_of(:password_confirmation) }
+  it { should validate_presence_of(:password) }
+  it { should ensure_length_of(:password).is_at_least(5) }
+  it { should validate_presence_of(:password_confirmation) }
 
   it { should be_valid }
 
@@ -75,19 +76,27 @@ describe User do
     end
   end
 
-  # describe "when password doesn't match confirmation" do
-  #   before(:each) do
-  #     @user = FactoryGirl.create(:user, password: 'blah', password_confirmation: 'mismatch' )
-  #   end
-  #   it { should_not be_valid }
-  # end
+  describe "when password doesn't match confirmation" do
+    before(:each) do
+      @user = FactoryGirl.build(:user, password: 'blahblah', password_confirmation: 'mismatch' )
+    end
+    it "should not be valid" do
+      @user.should_not be_valid
+    end
+  end
 
-  # describe "when password confirmation is nil" do
-  #   before(:each) do
-  #     @user = FactoryGirl.create(:user, password_confirmation: nil )
-  #   end
-  #   it { should_not be_valid }
-  # end
 
+  describe "return value of authenticate method" do
+    describe "with valid password" do
+      it { should == user.authenticate(user.password) }
+    end
+
+    describe "with invalid password" do
+      let(:user_for_invalid_password) { user.authenticate("invalid") }
+
+      it { should_not == user_for_invalid_password }
+      it { user_for_invalid_password.should be_false }
+    end
+  end
 
 end

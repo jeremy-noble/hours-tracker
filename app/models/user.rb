@@ -13,4 +13,5 @@ class User < ActiveRecord::Base
      uniqueness: { case_sensitive: false }
   validates :default_hourly_rate, presence: true, numericality: true
   validates :password, presence: true, length: { minimum: 5 }
+  validates :password_confirmation, presence: true
 end
