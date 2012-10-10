@@ -45,13 +45,15 @@
             <span class="icon-bar"></span>
           </a>
           <%= link_to 'Hours Tracker', root_path, class: 'brand' %>
-          <!-- <div class="container nav-collapse">
+          <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+              <% if logged_in? %>
+               <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
+              <% else %>
+                <li><%= link_to "Log In", login_path %></li>
+              <% end %>
             </ul>
-          </div> --><!--/.nav-collapse -->
+          </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
@@ -60,6 +62,9 @@
       <div class="content">
         <div class="row">
            <div class="span9">
+              <% flash.each do |key, value| %>
+                <div class="alert alert-<%= key %>"><%= value %></div>
+              <% end %>
               <%= yield %>
             </div>
             <div class="span3">
@@ -86,6 +91,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <%= javascript_include_tag "application" %>
-    <%= debug(params) if Rails.env.development? %>
+    <%#= debug(params) if Rails.env.development? %>
   </body>
 </html>

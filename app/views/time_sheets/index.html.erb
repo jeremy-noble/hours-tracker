@@ -1,4 +1,5 @@
 <%- model_class = TimeSheet -%>
+<% provide(:title, model_class.model_name.human.pluralize + ' for ' + @user.name) %>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %> for <%= link_to @user.name, @user %></h1>
 </div>
@@ -24,7 +25,7 @@
         <td>
           <%#= link_to t('.view_time_sheet', :default => t("helpers.links.view_time_sheet")),
                       [@user, time_sheet], :class => 'btn btn-mini' %>
-          <%= link_to t('.view_all_hours', :default => t("helpers.links.view_all_hours")),
+          <%= link_to t('.add_hours', :default => t("helpers.links.add_hours")),
                       user_time_sheet_entries_path(@user, time_sheet), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_time_sheet_path(@user, time_sheet), :class => 'btn btn-mini' %>
@@ -39,6 +40,6 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
+<%= link_to t('.create_new_time_sheet', :default => t("helpers.links.create_new_time_sheet")),
             new_user_time_sheet_path,
             :class => 'btn btn-primary' %>

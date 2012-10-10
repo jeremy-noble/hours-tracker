@@ -6,6 +6,10 @@ Hours::Application.routes.draw do
     end
   end
 
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/login',  to: 'sessions#new'
+  match '/logout', to: 'sessions#destroy', via: :delete
+
   root :to => 'users#index'
 
   # The priority is based upon order of creation:
