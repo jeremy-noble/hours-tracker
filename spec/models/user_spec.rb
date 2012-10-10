@@ -50,7 +50,7 @@ describe User do
       addresses = %w[user@foo,com user_at_foo.org example.user@foo.
                      foo@bar_baz.com foo@bar+baz.com]
       addresses.each do |invalid_address|
-        @user = FactoryGirl.create(:user, email: invalid_address)
+        @user = FactoryGirl.build(:user, email: invalid_address)
         @user.should_not be_valid
       end      
     end
@@ -60,9 +60,18 @@ describe User do
     it "should be valid" do
       addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
       addresses.each do |valid_address|
-        @user = FactoryGirl.create(:user, email: valid_address)
+        @user = FactoryGirl.build(:user, email: valid_address)
         @user.should be_valid
       end      
+    end
+  end
+
+  describe "when user enters a capitalized email" do
+    before(:each) do
+      @user = FactoryGirl.create(:user, email: "JEREMY@ALLCAPS.COM")
+    end
+    it "should be save as downcase" do
+      @user.email.should == "jeremy@allcaps.com"
     end
   end
 
