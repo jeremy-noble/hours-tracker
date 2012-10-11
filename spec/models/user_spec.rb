@@ -29,9 +29,6 @@ describe User do
   it { should have_db_column(:default_hourly_rate).
           of_type(:decimal).
           with_options(:precision => 8, :scale => 2) }
-  it { should validate_presence_of(:password) }
-  it { should ensure_length_of(:password).is_at_least(5) }
-  it { should validate_presence_of(:password_confirmation) }
 
   it { should be_valid }
 
@@ -76,6 +73,24 @@ describe User do
     end
   end
 
+  describe "when password is not present" do
+    before(:each) do
+      @user = FactoryGirl.build(:user, password: " ", password_confirmation: " " )
+    end
+    it "should not be valid" do
+      @user.should_not be_valid
+    end
+  end
+
+  describe "when password confirmation is nil" do
+    before(:each) do
+      @user = FactoryGirl.build(:user, password_confirmation: nil)
+    end
+    it "should not be valid" do
+      @user.should_not be_valid
+    end
+  end
+
   describe "when password doesn't match confirmation" do
     before(:each) do
       @user = FactoryGirl.build(:user, password: 'blahblah', password_confirmation: 'mismatch' )
@@ -85,6 +100,25 @@ describe User do
     end
   end
 
+  describe "with a password that's too short" do
+    before(:each) do
+      @user = FactoryGirl.build(:user, password: 'a' * 4, password_confirmation: 'a' * 4 )
+    end
+    it "should not be valid" do
+      @user.should_not be_valid
+    end
+  end
+
+  describe "when updating a user" do
+    before(:each) do
+      user = FactoryGirl.create(:user)
+      @saved_user = User.find(user)
+    end
+    it "should allow updates without specifiying a password" do
+      @saved_user.update_attributes(default_hourly_rate: 3)
+      @saved_user.should be_valid
+    end
+  end
 
   describe "return value of authenticate method" do
     describe "with valid password" do
