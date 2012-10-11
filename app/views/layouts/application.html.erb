@@ -39,13 +39,8 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
           <%= link_to 'Hours Tracker', root_path, class: 'brand' %>
-          <div class="container nav-collapse">
+          <div class="container">
             <ul class="nav pull-right">
               <% if logged_in? %>
                <li><%= link_to "Log Out", logout_path, method: "delete" %></li>
@@ -53,7 +48,7 @@
                 <li><%= link_to "Log In", login_path %></li>
               <% end %>
             </ul>
-          </div><!--/.nav-collapse -->
+          </div>
         </div>
       </div>
     </div>
