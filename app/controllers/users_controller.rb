@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :logged_in_user
+
   # GET /users
   # GET /users.json
   def index
@@ -81,3 +83,9 @@ class UsersController < ApplicationController
     end
   end
 end
+
+private
+
+  def logged_in_user
+    redirect_to login_url, notice: "Please log in." unless logged_in?
+  end

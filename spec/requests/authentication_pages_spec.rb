@@ -52,6 +52,26 @@ describe "Authentication" do
 
       describe "in the Users controller" do
 
+        describe "visiting the index page" do
+          before { visit users_path }
+          it { should have_selector('title', text: 'Log In') }
+        end
+
+        describe "visiting the show page" do
+          before { visit user_path(user) }
+          it { should have_selector('title', text: 'Log In') }
+        end
+
+        describe "visiting the new page" do
+          before { visit new_user_path }
+          it { should have_selector('title', text: 'Log In') }
+        end
+
+        describe "posting to the create action" do
+          before { post users_path }
+          specify { response.should redirect_to(login_path) }
+        end
+
         describe "visiting the edit page" do
           before { visit edit_user_path(user) }
           it { should have_selector('title', text: 'Log In') }
@@ -60,6 +80,11 @@ describe "Authentication" do
         describe "submitting to the update action" do
           before { put user_path(user) }
           specify { response.should redirect_to(login_path) }
+        end
+
+         describe "submitting a DELETE request to the Users#destroy action" do
+          before { delete user_path(user) }
+          specify { response.should redirect_to(login_path) }        
         end
       end
     end
