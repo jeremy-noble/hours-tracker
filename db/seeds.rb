@@ -6,6 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# add admin user
+
+user = User.create(name: 'Jeremy Kay', email: 'jeremy@nobledesktop.com', 
+    default_hourly_rate: 125, password: 'noble', password_confirmation: 'noble')
+user.toggle!(:admin)
+
 user_names = ['George', 'Jerry', 'Elaine', 'Kramer', 'Newman']
 
 user_names.each do |name|

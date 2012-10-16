@@ -44,6 +44,9 @@ describe "Authentication" do
 
   describe "authorization" do
 
+    # NOTE: SWITCHED AUTHORIZATION TO CANCAN
+    # THESE TESTS SHOULD PASS, BUT MAIN AUTHORIZATION TESTS SHOULD BE IN /models/ability_spec 
+
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
 
@@ -103,7 +106,7 @@ describe "Authentication" do
 
       describe "submitting a PUT request to the Users#update action" do
         before { put user_path(wrong_user) }
-        specify { response.should redirect_to(root_path) }
+        specify { response.should redirect_to(login_path) }
       end
     end
 

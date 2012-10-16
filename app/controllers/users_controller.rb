@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
   # before_filter :logged_in_user
 
   # GET /users
@@ -84,8 +85,8 @@ class UsersController < ApplicationController
   end
 end
 
-private
+# private
 
-  def logged_in_user
-    redirect_to login_url, notice: "Please log in." unless logged_in?
-  end
+#   def logged_in_user
+#     redirect_to login_url, notice: "Please log in." unless logged_in?
+#   end

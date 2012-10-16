@@ -12,9 +12,11 @@ describe User do
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:admin) }
 
   it { should allow_mass_assignment_of(:name) }
   it { should_not allow_mass_assignment_of(:id) }
+  it { should_not allow_mass_assignment_of(:admin) }
   
   it { should have_many(:time_sheets) }
 
@@ -31,6 +33,7 @@ describe User do
           with_options(:precision => 8, :scale => 2) }
 
   it { should be_valid }
+  it { should_not be_admin }
 
   describe "when email address is already taken" do
     before(:each) do
@@ -131,6 +134,15 @@ describe User do
       it { should_not == user_for_invalid_password }
       it { user_for_invalid_password.should be_false }
     end
+  end
+
+  describe "with admin attribute set to 'true'" do
+    before do
+      user.save!
+      user.toggle!(:admin)
+    end
+
+    it { should be_admin }
   end
 
 end
