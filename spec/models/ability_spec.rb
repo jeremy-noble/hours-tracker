@@ -21,5 +21,11 @@ describe 'User' do
       it{ should_not be_able_to(:read, wrong_user) }
     end
 
+    context 'when is a logged Admin user' do
+      let(:current_user){ FactoryGirl.create(:user, admin: true) } 
+
+      it{ should be_able_to(:manage, :all) }
+    end
+
   end
 end
