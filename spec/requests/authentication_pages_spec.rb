@@ -30,16 +30,28 @@ describe "Authentication" do
       let(:user) { FactoryGirl.create(:user) }
       before { log_in user }
 
-
-      it { should have_selector('title', text: "Time sheets for #{user.name}") }
       it { should have_link('Log Out', href: logout_path) }
       it { should_not have_link('Log In', href: login_path) }
+      it { should have_link('My Account') }
+      it { should have_link('My Time Sheets') }
+      it { should have_content("Hours Tracker - #{user.name}") }
+
+      describe "click My Account" do
+        before { click_link "My Account" }
+        it { should have_selector('title', text: "#{user.name}") }
+      end
+
+      describe "click My Time Sheets" do
+        before { click_link "My Time Sheets" }
+        it { should have_selector('title', text: "Time sheets for #{user.name}") }
+      end
 
       describe "followed by log out" do
         before { click_link "Log Out" }
         it { should have_link('Log In') }
       end
     end
+
   end
 
   describe "authorization" do
@@ -121,6 +133,9 @@ describe "Authentication" do
       let(:user) { FactoryGirl.create(:user) }
       before { log_in user }
 
+      it { should have_selector('title', text: "Time sheets for #{user.name}") }
+      it { should_not have_link('All Users') }
+
       describe "should not allow access to user#index" do
         before { visit users_path }
         it { should have_selector('title', text: 'Log In') }
@@ -130,6 +145,25 @@ describe "Authentication" do
         before { visit user_time_sheets_path(user) }
         it { should have_selector('title', text: "Time sheets for #{user.name}") }
       end
+    end
+
+    describe "as admin user" do
+      let(:admin_user) { FactoryGirl.create(:user, admin: true) }
+      before { log_in admin_user }
+
+      it { should have_selector('title', text: 'All Users') }
+      it { should have_link('All Users') }
+
+      describe "click All Users" do
+        before { click_link "All Users" }
+        it { should have_selector('title', text: "All Users") }
+      end
+
+      describe "should allow access to user#index" do
+        before { visit users_path }
+        it { should_not have_selector('title', text: 'Log In') }
+      end
+
     end
 
     describe "as wrong user" do

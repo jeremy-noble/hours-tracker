@@ -10,8 +10,8 @@ class Ability
       # logged in users
       cannot :index, User
       can :read, User, id: user.id
-      can :read, TimeSheet, user_id: user.id
-      can :read, Entry, :time_sheet => { user_id: user.id }
+      can [:read, :create], TimeSheet, user_id: user.id
+      can [:read, :create], Entry, :time_sheet => { user_id: user.id }
       # Admins 
       if user.admin?
         can :manage, :all
