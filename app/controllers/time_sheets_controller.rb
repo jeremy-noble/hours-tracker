@@ -1,4 +1,6 @@
 class TimeSheetsController < ApplicationController
+  load_and_authorize_resource :user
+  load_and_authorize_resource :time_sheet, through: :user
 
   before_filter :get_user
 

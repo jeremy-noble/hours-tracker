@@ -44,11 +44,14 @@ describe "Authentication" do
 
   describe "authorization" do
 
-    # NOTE: SWITCHED AUTHORIZATION TO CANCAN
-    # THESE TESTS SHOULD PASS, BUT MAIN AUTHORIZATION TESTS SHOULD BE IN /models/ability_spec 
+    # NOTE: these are just basic tests to make sure users get redirected to login
+    # extensive testing for permissions is in spec/models/ability_spec
+    # essentially this checks to make sure I included the load_and_authorize_resource in the controller
 
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:time_sheet) { FactoryGirl.create(:time_sheet, user: user) }
+      let(:entry) { FactoryGirl.create(:entry, time_sheet: time_sheet) }
 
       describe "in the Users controller" do
 
@@ -87,11 +90,52 @@ describe "Authentication" do
           specify { response.should redirect_to(login_path) }        
         end
       end
+
+      describe "in the time_sheets controller" do
+         describe "visiting the index page" do
+          before { visit user_time_sheets_path(user) }
+          it { should have_selector('title', text: 'Log In') }
+        end
+
+        describe "visiting the show page" do
+          before { visit user_time_sheet_path(user, time_sheet) }
+          it { should have_selector('title', text: 'Log In') }
+        end
+      end
+
+      describe "in the entries controller" do
+        describe "visiting the index page" do
+          before { visit user_time_sheet_entries_path(user, time_sheet) }
+          it { should have_selector('title', text: 'Log In') }
+        end
+
+        describe "visiting the show page" do
+          before { visit user_time_sheet_entry_path(user, time_sheet, entry) }
+          it { should have_selector('title', text: 'Log In') }
+        end
+      end
+
+    end
+
+    describe "as valid non-admin user" do
+      let(:user) { FactoryGirl.create(:user) }
+      before { log_in user }
+
+      describe "should not allow access to user#index" do
+        before { visit users_path }
+        it { should have_selector('title', text: 'Log In') }
+      end
+
+      describe "should allow access to user's time_sheets" do
+        before { visit user_time_sheets_path(user) }
+        it { should have_selector('title', text: "Time sheets for #{user.name}") }
+      end
     end
 
     describe "as wrong user" do
       let(:user) { FactoryGirl.create(:user) }
       let(:wrong_user) { FactoryGirl.create(:user, email: "wrong@example.com") }
+      let(:wrong_time_sheet) { FactoryGirl.create(:time_sheet, user: wrong_user) }
       before { log_in user }
 
       describe "visiting Users#show page" do
@@ -108,6 +152,17 @@ describe "Authentication" do
         before { put user_path(wrong_user) }
         specify { response.should redirect_to(login_path) }
       end
+
+      describe "should not allow access to another user's time_sheets" do
+        before { visit user_time_sheets_path(wrong_user) }
+        it { should have_selector('title', text: 'Log In') }
+      end
+
+      describe "should not allow access to another user's time_sheet's entries" do
+        before { visit user_time_sheet_entries_path(wrong_user, wrong_time_sheet) }
+        it { should have_selector('title', text: 'Log In') }
+      end
+
     end
 
   end

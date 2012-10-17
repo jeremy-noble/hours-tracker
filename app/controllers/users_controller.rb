@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    authorize! :index, Ability
     @users = User.all
 
     respond_to do |format|

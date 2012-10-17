@@ -7,11 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # add admin user
-
 user = User.create(name: 'Jeremy Kay', email: 'jeremy@nobledesktop.com', 
     default_hourly_rate: 125, password: 'noble', password_confirmation: 'noble')
 user.toggle!(:admin)
 
+# add normal users
 user_names = ['George', 'Jerry', 'Elaine', 'Kramer', 'Newman']
 
 user_names.each do |name|

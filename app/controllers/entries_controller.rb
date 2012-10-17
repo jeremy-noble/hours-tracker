@@ -1,4 +1,7 @@
 class EntriesController < ApplicationController
+  load_and_authorize_resource :user
+  load_and_authorize_resource :time_sheet, through: :user
+  load_and_authorize_resource :entry, through: :time_sheet
 
   before_filter :get_user
 
