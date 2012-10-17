@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  # before_filter :logged_in_user
 
   # GET /users
   # GET /users.json
@@ -85,9 +84,3 @@ class UsersController < ApplicationController
     end
   end
 end
-
-# private
-
-#   def logged_in_user
-#     redirect_to login_url, notice: "Please log in." unless logged_in?
-#   end

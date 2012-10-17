@@ -6,7 +6,6 @@ describe 'User' do
 
     context 'when is not logged in' do
       let(:current_user){ nil }
-      # let(:user){ FactoryGirl.create(:user) }
 
       it{ should_not be_able_to(:manage, :all) }
       it{ should_not be_able_to(:read, :all) }
