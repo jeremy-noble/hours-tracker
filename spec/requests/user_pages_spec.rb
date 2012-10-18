@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "User pages" do
   let!(:non_admin_user) { FactoryGirl.create(:user) }
-  let!(:admin_user) { FactoryGirl.create(:user, admin: true) }
+  let!(:admin_user) { FactoryGirl.create(:admin) }
 
   subject { page }
 

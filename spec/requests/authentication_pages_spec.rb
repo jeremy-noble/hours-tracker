@@ -148,7 +148,7 @@ describe "Authentication" do
     end
 
     describe "as admin user" do
-      let(:admin_user) { FactoryGirl.create(:user, admin: true) }
+      let(:admin_user) { FactoryGirl.create(:admin) }
       before { log_in admin_user }
 
       it { should have_selector('title', text: 'All Users') }

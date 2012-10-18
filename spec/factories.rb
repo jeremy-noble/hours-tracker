@@ -6,6 +6,10 @@ FactoryGirl.define do
     default_hourly_rate 150
     password "123456"
     password_confirmation { |u| u.password }
+
+    factory :admin do
+      admin true
+    end
   end
 
   factory :time_sheet do

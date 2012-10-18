@@ -46,7 +46,7 @@ describe 'User' do
     end
 
     context 'when is a logged Admin user' do
-      let(:current_user){ FactoryGirl.create(:user, admin: true) } 
+      let(:current_user){ FactoryGirl.create(:admin) } 
 
       it{ should be_able_to(:manage, :all) }
     end

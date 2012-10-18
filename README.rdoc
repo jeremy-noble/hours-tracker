@@ -6,11 +6,18 @@ A simple hours tracker that lets you add users and track their hours worked per 
 
 * Allows you to add users, and give each user a time sheet. 
 * Users can then add hours to each time sheet. 
-* The total hours for each time sheet are calculated automatically. 
+* Users can specify a pay rate for hours they add, with a project. Otherwise, it will default to their normal pay rate. (for example worked 5 hours @ $60/hr)
+* The total hours and payment for each time sheet are calculated automatically. 
 * When payroll time comes around the time sheets can be marked as "paid". 
+* Allow entry of a pay rate for each project. 
+* Authentication: users can log in and out for their hours with a password. Only "admins" can be able to see all users and mark them as paid.
+* Tested with rspec
 
-= Planned Features
-* Allow entry of a pay rate for each project. (for example worked 5 hours @ $60/hr)
-* Testing with rspec
-* ajax?
-* Authentication: users should log in and out for their hours with a password. Only "admins" should be able to see all users and mark them as paid.
+
+= Notes
+* Only admins can add new users.
+* To add sample admin user run: rake db:seed
+* Default admin user is:
+email: admin@example.com
+password: admin
+

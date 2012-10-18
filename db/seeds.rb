@@ -7,8 +7,8 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # add admin user
-user = User.create(name: 'Jeremy Kay', email: 'jeremy@nobledesktop.com', 
-    default_hourly_rate: 125, password: 'noble', password_confirmation: 'noble')
+user = User.create(name: 'admin', email: 'admin@example.com', 
+    default_hourly_rate: 125, password: 'admin', password_confirmation: 'admin')
 user.toggle!(:admin)
 
 # add normal users
