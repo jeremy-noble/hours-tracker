@@ -11,7 +11,8 @@ class Ability
       cannot :index, User
       can :read, User, id: user.id
       can [:read, :create], TimeSheet, user_id: user.id
-      can [:read, :create], Entry, :time_sheet => { user_id: user.id }
+      can :manage, Entry, :time_sheet => { user_id: user.id, paid: false }
+      can :read, Entry, :time_sheet => { user_id: user.id, paid: true }
       # Admins 
       if user.admin?
         can :manage, :all

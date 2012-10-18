@@ -140,11 +140,6 @@ describe "Authentication" do
         before { visit users_path }
         it { should have_selector('title', text: 'Log In') }
       end
-
-      describe "should allow access to user's time_sheets" do
-        before { visit user_time_sheets_path(user) }
-        it { should have_selector('title', text: "Time sheets for #{user.name}") }
-      end
     end
 
     describe "as admin user" do
