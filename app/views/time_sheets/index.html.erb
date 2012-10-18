@@ -24,7 +24,11 @@
         <td><%= yesno time_sheet.paid %></td>
         <td>
           <% if can? :read, time_sheet %>
-          <%= link_to 'View/Add Hours', user_time_sheet_entries_path(@user, time_sheet), :class => 'btn btn-mini' %>
+          <% if time_sheet.paid?%>
+          <%= link_to 'View Hours', user_time_sheet_entries_path(@user, time_sheet), :class => 'btn btn-mini' %>
+          <% else %>
+            <%= link_to 'Add Hours', user_time_sheet_entries_path(@user, time_sheet), :class => 'btn btn-mini btn-success' %>
+          <% end %>
           <% end %>
           <% if can? :update, time_sheet %>
             <%= link_to 'Mark Paid', edit_user_time_sheet_path(@user, time_sheet), :class => 'btn btn-mini' %>

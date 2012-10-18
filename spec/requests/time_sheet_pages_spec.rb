@@ -4,6 +4,7 @@ describe "TimeSheet pages" do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:admin) { FactoryGirl.create(:admin) }
   let!(:time_sheet) { FactoryGirl.create(:time_sheet, user: user) }
+  let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user) }
 
   subject { page }
 
@@ -18,7 +19,8 @@ describe "TimeSheet pages" do
 
       it { should have_selector('title', text: "Time sheets for #{user.name}") }
       it { should have_link('Create New Time Sheet') }
-      it { should have_link('View/Add Hours') }
+      it { should have_exact_link('Add Hours', href: user_time_sheet_entries_path(user, time_sheet)) }
+      it { should have_exact_link('View Hours', href: user_time_sheet_entries_path(user, paid_time_sheet)) }
       it { should_not have_link('Mark Paid') }
       it { should_not have_link('Delete Time Sheet') }
     end
@@ -31,7 +33,8 @@ describe "TimeSheet pages" do
       end
 
       it { should have_link('Create New Time Sheet') }
-      it { should have_link('View/Add Hours') }
+      it { should have_exact_link('Add Hours', href: user_time_sheet_entries_path(user, time_sheet)) }
+      it { should have_exact_link('View Hours', href: user_time_sheet_entries_path(user, paid_time_sheet)) }
       it { should have_link('Mark Paid') }
       it { should have_link('Delete Time Sheet') }
       it "should be able to delete time sheet" do
