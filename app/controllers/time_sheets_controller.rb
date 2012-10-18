@@ -53,7 +53,7 @@ class TimeSheetsController < ApplicationController
 
     respond_to do |format|
       if @time_sheet.save
-        format.html { redirect_to [@user, @time_sheet], notice: 'Time sheet was successfully created.' }
+        format.html { redirect_to user_time_sheets_path(@user), notice: 'Time sheet was successfully created.' }
         format.json { render json: [@user, @time_sheet], status: :created, location: [@user, @time_sheet] }
       else
         format.html { render action: "new" }

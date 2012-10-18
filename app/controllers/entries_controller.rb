@@ -60,7 +60,9 @@ class EntriesController < ApplicationController
 
     respond_to do |format|
       if @entry.save
-        format.html { redirect_to [@user, @time_sheet, @entry], notice: 'Hours were successfully added.' }
+        # [@user, @time_sheet, @entry]
+        # user_time_sheet_entries_path(@user, @time_sheet)
+        format.html { redirect_to user_time_sheet_entries_path(@user, @time_sheet), notice: 'Hours were successfully added.' }
         format.json { render json: [@user, @time_sheet, @entry], status: :created, location: [@user, @time_sheet, @entry] }
       else
         format.html { render action: "new" }

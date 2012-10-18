@@ -12,16 +12,21 @@
   <dd><%= @time_sheet.total_hours %></dd>
   <dt><strong><%= model_class.human_attribute_name(:paid) %>:</strong></dt>
   <dd><%= @time_sheet.paid %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
+  <dd><%= @time_sheet.notes %></dd>
 </dl>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
+  <%= link_to 'Back',
               user_time_sheets_path(@user), :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_user_time_sheet_path(@user, @time_sheet), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              user_time_sheet_path(@user, @time_sheet),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+  <% if can? :update, @time_sheet %>
+    <%= link_to 'Edit', edit_user_time_sheet_path(@user, @time_sheet), :class => 'btn' %>
+  <% end %>
+  <% if can? :destroy, @time_sheet %>
+    <%= link_to 'Delete',
+                user_time_sheet_path(@user, @time_sheet),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+  <% end %>
 </div>

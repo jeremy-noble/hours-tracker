@@ -7,8 +7,10 @@ describe TimeSheet do
   it { should respond_to(:id) }
   it { should respond_to(:paid) }
   it { should respond_to(:user_id) }
+  it { should respond_to(:notes) }
 
   it { should allow_mass_assignment_of(:paid) }
+  it { should allow_mass_assignment_of(:notes) }
   it { should_not allow_mass_assignment_of(:user_id) }
   it { should_not allow_mass_assignment_of(:user) }
 

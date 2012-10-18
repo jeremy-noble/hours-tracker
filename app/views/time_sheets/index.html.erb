@@ -31,7 +31,7 @@
           <% end %>
           <% end %>
           <% if can? :update, time_sheet %>
-            <%= link_to 'Mark Paid', edit_user_time_sheet_path(@user, time_sheet), :class => 'btn btn-mini' %>
+            <%= link_to 'Edit Time Sheet', edit_user_time_sheet_path(@user, time_sheet), :class => 'btn btn-mini btn-info' %>
           <% end %>
           <% if can? :destroy, time_sheet %>
           <%= link_to 'Delete Time Sheet',
@@ -46,6 +46,9 @@
   </tbody>
 </table>
 
-<%= link_to t('.create_new_time_sheet', :default => t("helpers.links.create_new_time_sheet")),
-            new_user_time_sheet_path,
-            :class => 'btn btn-primary' %>
+<%#= link_to 'Create New Time Sheet',new_user_time_sheet_path, :class => 'btn btn-primary' %>
+
+
+<%= form_tag user_time_sheets_path(@user) do %>
+<%= submit_tag 'Create New Time Sheet', :class => 'btn btn-primary' %>
+<% end %>

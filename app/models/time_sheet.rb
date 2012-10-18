@@ -1,5 +1,5 @@
 class TimeSheet < ActiveRecord::Base
-  attr_accessible :paid
+  attr_accessible :paid, :notes
   belongs_to :user
   has_many :entries
 

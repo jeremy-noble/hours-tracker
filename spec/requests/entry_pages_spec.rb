@@ -59,4 +59,22 @@ describe "Entry pages" do
     end
 
   end
+
+  describe "new" do
+
+    describe "create new valid entry" do
+      before do 
+        log_in user
+        visit new_user_time_sheet_entry_path(user, time_sheet)
+        fill_in "Hours",    with: "5"
+        click_button "Create Entry"
+      end
+      
+      describe "should redirect to entries#index" do
+        it { should have_content("Hours for Time Sheet ##{time_sheet.id}") }
+      end
+    end
+
+  end
+
 end
