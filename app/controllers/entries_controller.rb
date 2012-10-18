@@ -60,7 +60,7 @@ class EntriesController < ApplicationController
 
     respond_to do |format|
       if @entry.save
-        format.html { redirect_to [@user, @time_sheet, @entry], notice: 'Entry was successfully created.' }
+        format.html { redirect_to [@user, @time_sheet, @entry], notice: 'Hours were successfully added.' }
         format.json { render json: [@user, @time_sheet, @entry], status: :created, location: [@user, @time_sheet, @entry] }
       else
         format.html { render action: "new" }
@@ -76,7 +76,7 @@ class EntriesController < ApplicationController
 
     respond_to do |format|
       if @entry.update_attributes(params[:entry])
-        format.html { redirect_to [@user, @time_sheet, @entry], notice: 'Entry was successfully updated.' }
+        format.html { redirect_to [@user, @time_sheet, @entry], notice: 'Hours were successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

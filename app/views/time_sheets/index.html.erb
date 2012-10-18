@@ -23,17 +23,19 @@
         <td><%= number_to_currency(time_sheet.total_cash) %></td>
         <td><%= yesno time_sheet.paid %></td>
         <td>
-          <%#= link_to t('.view_time_sheet', :default => t("helpers.links.view_time_sheet")),
-                      [@user, time_sheet], :class => 'btn btn-mini' %>
-          <%= link_to t('.add_hours', :default => t("helpers.links.add_hours")),
-                      user_time_sheet_entries_path(@user, time_sheet), :class => 'btn btn-mini' %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_user_time_sheet_path(@user, time_sheet), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <% if can? :read, time_sheet %>
+          <%= link_to 'View/Add Hours', user_time_sheet_entries_path(@user, time_sheet), :class => 'btn btn-mini' %>
+          <% end %>
+          <% if can? :update, time_sheet %>
+            <%= link_to 'Mark Paid', edit_user_time_sheet_path(@user, time_sheet), :class => 'btn btn-mini' %>
+          <% end %>
+          <% if can? :destroy, time_sheet %>
+          <%= link_to 'Delete Time Sheet',
                       user_time_sheet_path(@user, time_sheet),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
+          <% end %>
         </td>
       </tr>
     <% end %>

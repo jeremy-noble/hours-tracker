@@ -1,4 +1,15 @@
 <%= form_for [@user, @time_sheet, @entry], :html => { :class => 'form-horizontal' } do |f| %>
+<% if @entry.errors.any? %>
+    <div class="alert alert-error">
+      <p><strong><%= pluralize(@entry.errors.count, "error") %> prohibited the hours from being saved:</strong></p>
+      <ul>
+      <% @entry.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="control-group">
     <%= f.label :date, :class => 'control-label' %>
     <div class="controls">
