@@ -32,19 +32,6 @@ describe "Authentication" do
 
       it { should have_link('Log Out', href: logout_path) }
       it { should_not have_link('Log In', href: login_path) }
-      it { should have_link('My Account') }
-      it { should have_link('My Time Sheets') }
-      it { should have_content("Hours Tracker - #{user.name}") }
-
-      describe "click My Account" do
-        before { click_link "My Account" }
-        it { should have_selector('title', text: "#{user.name}") }
-      end
-
-      describe "click My Time Sheets" do
-        before { click_link "My Time Sheets" }
-        it { should have_selector('title', text: "Time sheets for #{user.name}") }
-      end
 
       describe "followed by log out" do
         before { click_link "Log Out" }
@@ -56,16 +43,15 @@ describe "Authentication" do
 
   describe "authorization" do
 
-    # NOTE: these are just basic tests to make sure users get redirected to login
-    # extensive testing for permissions is in spec/models/ability_spec
-    # essentially this checks to make sure I included the load_and_authorize_resource in the controller
-
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
       let(:time_sheet) { FactoryGirl.create(:time_sheet, user: user) }
       let(:entry) { FactoryGirl.create(:entry, time_sheet: time_sheet) }
 
       describe "in the Users controller" do
+        # NOTE: these are just basic tests to make sure users get redirected to login
+        # extensive testing for permissions is in spec/models/ability_spec
+        # essentially this checks to make sure I included the load_and_authorize_resource in the controller
 
         describe "visiting the index page" do
           before { visit users_path }
@@ -133,7 +119,32 @@ describe "Authentication" do
       let(:user) { FactoryGirl.create(:user) }
       before { log_in user }
 
-      it { should have_selector('title', text: "Time sheets for #{user.name}") }
+      it { should have_link('My Account') }
+      it { should have_link('My Time Sheets') }
+      it { should have_content("Hours Tracker - #{user.name}") }
+
+      context "when there is an unpaid time sheet" do
+        let!(:time_sheet) { FactoryGirl.create(:time_sheet, user: user) }
+        before { log_in user }
+        it { should have_content("Hours for Time Sheet ##{time_sheet.id}") }
+      end
+
+      context "when there are only paid time sheets" do
+        let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user) }
+        before { log_in user }
+        it { should have_selector('title', text: "Time sheets for #{user.name}") }
+      end
+
+      describe "click My Account" do
+        before { click_link "My Account" }
+        it { should have_selector('title', text: "#{user.name}") }
+      end
+
+      describe "click My Time Sheets" do
+        before { click_link "My Time Sheets" }
+        it { should have_selector('title', text: "Time sheets for #{user.name}") }
+      end
+
       it { should_not have_link('All Users') }
 
       describe "should not allow access to user#index" do
