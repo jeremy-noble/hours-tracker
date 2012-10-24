@@ -55,6 +55,19 @@ describe TimeSheet do
     it "should return the correct total_cash for a time sheet's entries" do
       @time_sheet.total_cash.should == (75*3) + (11*30) + (60*3.5)
     end
+
+    describe "when the default_hourly_rate for the user are changed" do
+      it "should not change total_cash" do
+        @user.default_hourly_rate = 60
+        @user.save
+        @time_sheet.total_hours.should == 17.5
+
+        @user.default_hourly_rate = 40.5
+        @user.save
+        @time_sheet.total_hours.should == 17.5
+      end 
+    end 
   end
+
 
 end
