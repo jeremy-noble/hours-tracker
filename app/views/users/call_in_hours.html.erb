@@ -1,12 +1,12 @@
 <%- model_class = User -%>
-<% provide(:title, 'All Users') %>
+<% provide(:title, 'Call In Hours') %>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1>Call In Hours</h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:default_hourly_rate) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -14,7 +14,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to "#{user.first_name} #{user.last_name}", user_path(user) %></td>
+        <td><%= link_to user.name, user_path(user) %></td>
         <td><%= number_to_currency(user.default_hourly_rate) %></td>
         <td>
           <%= link_to 'View All Time Sheets', user_time_sheets_path(user), :class => 'btn btn-mini' %>

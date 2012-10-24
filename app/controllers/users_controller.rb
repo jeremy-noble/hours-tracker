@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
 
+  # def call_in_hours
+  #   authorize! :index, Ability
+  #   @users = User.find(:all, :order => "LOWER(name)")
+  # end
+
   # GET /users
   # GET /users.json
   def index

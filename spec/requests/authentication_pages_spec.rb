@@ -121,7 +121,7 @@ describe "Authentication" do
 
       it { should have_link('My Account') }
       it { should have_link('My Time Sheets') }
-      it { should have_content("Hours Tracker - #{user.name}") }
+      it { should have_content("Hours Tracker - #{user.first_name} #{user.last_name}") }
 
       context "when there is an unpaid time sheet" do
         let!(:time_sheet) { FactoryGirl.create(:time_sheet, user: user) }
@@ -132,17 +132,17 @@ describe "Authentication" do
       context "when there are only paid time sheets" do
         let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user) }
         before { log_in user }
-        it { should have_selector('title', text: "Time sheets for #{user.name}") }
+        it { should have_selector('title', text: "Time sheets for #{user.first_name} #{user.last_name}") }
       end
 
       describe "click My Account" do
         before { click_link "My Account" }
-        it { should have_selector('title', text: "#{user.name}") }
+        it { should have_selector('title', text: "#{user.first_name} #{user.last_name}") }
       end
 
       describe "click My Time Sheets" do
         before { click_link "My Time Sheets" }
-        it { should have_selector('title', text: "Time sheets for #{user.name}") }
+        it { should have_selector('title', text: "Time sheets for #{user.first_name} #{user.last_name}") }
       end
 
       it { should_not have_link('All Users') }
@@ -180,7 +180,7 @@ describe "Authentication" do
 
       describe "visiting Users#show page" do
         before { visit user_path(wrong_user) }
-        it { should_not have_selector('title', text: wrong_user.name) }
+        it { should_not have_selector('title', text: "#{wrong_user.first_name} #{wrong_user.last_name}") }
       end
 
       describe "visiting Users#edit page" do

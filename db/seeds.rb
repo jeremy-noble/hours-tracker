@@ -1,14 +1,19 @@
 # add admin user
-user = User.create(name: 'admin', email: 'admin@example.com', 
+user = User.create(first_name: 'admin', last_name: 'admin', email: 'admin@example.com', 
     default_hourly_rate: 250, password: 'admin', password_confirmation: 'admin')
 user.toggle!(:admin)
 
 # add normal users
-user_names = ['George', 'Jerry', 'Elaine', 'Cosmo', 'Newman']
+users = Array.new
 
-user_names.each do |name|
+users << {first_name: 'George', last_name: 'Constanza'}
+users << {first_name: 'Jerry', last_name: 'Seinfeld'}
+users << {first_name: 'Elaine', last_name: 'Benes'}
+users << {first_name: 'Cosmo', last_name: 'Kramer'}
 
-  user = User.create(name: name, email: "#{name}@example.com", 
+users.each do |user|
+
+  user = User.create(first_name: user[:first_name], last_name: user[:last_name], email: "#{user[:first_name]}@example.com", 
     default_hourly_rate: 150, password: 'foobar', password_confirmation: 'foobar')
 
   7.times do |i| 

@@ -1,7 +1,8 @@
 FactoryGirl.define do
 
   factory :user do
-    sequence(:name) {|i| "Jeremy Kay#{i}"}
+    sequence(:first_name) {|i| "Jeremy#{i}"}
+    sequence(:last_name) {|i| "Kay#{i}"}
     sequence(:email) {|i| "jeremy#{i}@jeremyisrad.org"}
     default_hourly_rate 150
     password "123456"

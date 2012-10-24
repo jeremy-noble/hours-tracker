@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121018213548) do
+ActiveRecord::Schema.define(:version => 20121024194837) do
 
   create_table "entries", :force => true do |t|
     t.integer  "time_sheet_id"
@@ -32,13 +32,14 @@ ActiveRecord::Schema.define(:version => 20121018213548) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "name"
     t.datetime "created_at",                                                           :null => false
     t.datetime "updated_at",                                                           :null => false
     t.decimal  "default_hourly_rate", :precision => 8, :scale => 2
     t.string   "password_digest"
     t.string   "email"
     t.boolean  "admin",                                             :default => false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
 end

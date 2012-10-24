@@ -17,7 +17,7 @@ describe "TimeSheet pages" do
         visit user_time_sheets_path(user)
       end
 
-      it { should have_selector('title', text: "Time sheets for #{user.name}") }
+      it { should have_selector('title', text: "Time sheets for #{user.first_name} #{user.last_name}") }
       it { should have_button('Create New Time Sheet') }
       it "should be able to create new time sheet" do
         expect { click_button('Create New Time Sheet') }.to change(TimeSheet, :count).by(1)
@@ -66,8 +66,10 @@ describe "TimeSheet pages" do
         visit user_time_sheet_path(user, time_sheet)
       end
 
-      it { should have_content('Name') }
-      it { should have_content("#{user.name}") }
+      it { should have_content('First name') }
+      it { should have_content("#{user.first_name}") }
+      it { should have_content('Last name') }
+      it { should have_content("#{user.last_name}") }
       it { should have_content('Total hours') }
       it { should have_content("#{time_sheet.total_hours}") }
       it { should have_content('Paid') }

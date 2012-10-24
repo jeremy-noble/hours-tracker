@@ -39,7 +39,7 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <span class="brand">Hours Tracker<% if logged_in? %> - <%= current_user.name %><% end %></span>
+          <span class="brand">Hours Tracker<% if logged_in? %> - <%= current_user.first_name %> <%= current_user.last_name %><% end %></span>
           <div class="container">
             <ul class="nav pull-right">
               <% if logged_in? %>

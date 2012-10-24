@@ -1,7 +1,7 @@
 <%- model_class = TimeSheet -%>
-<% provide(:title, model_class.model_name.human.pluralize + ' for ' + @user.name) %>
+<% provide(:title, model_class.model_name.human.pluralize + ' for ' + @user.first_name + ' ' + @user.last_name) %>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %> for <%= link_to @user.name, @user %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %> for <%= link_to "#{@user.first_name} #{@user.last_name}", @user %></h1>
 </div>
 <table class="table table-striped">
   <thead>
