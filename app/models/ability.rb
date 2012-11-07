@@ -13,7 +13,6 @@ class Ability
       can [:read, :create], TimeSheet, user_id: user.id
       can :manage, Entry, :time_sheet => { user_id: user.id, paid: false }
       can :read, Entry, :time_sheet => { user_id: user.id, paid: true }
-      can :index, :call_in_hours
       # Admins 
       if user.admin?
         can :manage, :all
