@@ -7,8 +7,8 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Total Hours</th>
-      <th>Total Cash</th>
+      <th>Hours</th>
+      <th>Salary</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -17,21 +17,14 @@
       <tr>
         <td><%= link_to "#{time_sheet.user.first_name} #{time_sheet.user.last_name}", user_path(time_sheet.user) %></td>
         <%#= raise user.time_sheets.inspect %>
-        <td><%= time_sheet.total_hours %></td>
-        <td><%= number_to_currency(time_sheet.total_cash) %></td>
+        <td><%= time_sheet.total_hours if time_sheet.hourly_only? %></td>
+        <td><%= number_to_currency(time_sheet.total_cash) if !time_sheet.hourly_only? %></td>
         <td>
-          <%= link_to 'View All Time Sheets', user_time_sheets_path(time_sheet.user), :class => 'btn btn-mini' %>
-          <%= link_to 'Edit User', edit_user_path(time_sheet.user), :class => 'btn btn-mini' %>
-          <% if !current_user?(time_sheet.user) %>
-          <%= link_to 'Delete User', user_path(time_sheet.user),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-          <% end %>
+          <%= link_to 'View Hours', user_time_sheet_entries_path(time_sheet.user, time_sheet), :class => 'btn btn-mini' %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New User', new_user_path, :class => 'btn btn-primary' %>
+<%= link_to 'Mark All Paid', :class => 'btn btn-primary' %>

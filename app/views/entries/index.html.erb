@@ -4,6 +4,7 @@
   <h2>Total Hours: <%= @time_sheet.total_hours %></h2>
   <h3>Total: <%= number_to_currency(@time_sheet.total_cash) %></h3>
   <h3>Paid: <%= yesno @time_sheet.paid %></h3>
+  <p><%= link_to 'Edit Time Sheet', edit_user_time_sheet_path(@user, @time_sheet), :class => 'btn btn-mini' %></p>
 </div>
 <table class="table table-striped">
   <thead>

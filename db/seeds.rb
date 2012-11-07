@@ -21,8 +21,8 @@ users.each do |user|
     time_sheet = TimeSheet.new
     time_sheet.user_id = user.id
 
-    # mark some of them "paid"
-    if i < 4
+    # mark all but last "paid"
+    if i < 7
       time_sheet.paid = true
     end
 

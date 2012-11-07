@@ -33,7 +33,7 @@ describe "Entry pages" do
         before { visit user_time_sheet_entries_path(user, paid_time_sheet) }
 
         it { should_not have_link('Add New Hours') }
-        it { should_not have_link('Edit') }
+        it { should_not have_exact_link('Edit') }
         it { should_not have_link('Delete') }
       end
     end
@@ -47,6 +47,7 @@ describe "Entry pages" do
         it { should have_link('Add New Hours') }
         it { should have_link('Edit') }
         it { should have_link('Delete') }
+        it { should have_exact_link('Edit Time Sheet') }
       end
 
       context "on a paid time sheet" do
