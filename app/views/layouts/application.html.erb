@@ -44,6 +44,7 @@
             <ul class="nav pull-right">
               <% if logged_in? %>
                 <% if can? :mange, :all %>
+                  <li><%= link_to 'Call In Hours', call_in_hours_path %></li>
                   <li><%= link_to 'All Users', users_path %></li>
                 <% end %>
                 <li><%= link_to 'My Time Sheets', user_time_sheets_path(current_user) %></li>

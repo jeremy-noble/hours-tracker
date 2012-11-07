@@ -6,5 +6,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to login_url, :alert => exception.message
+    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}"
   end
 end

@@ -7,9 +7,7 @@ describe "User pages" do
   subject { page }
 
   describe "index" do
-
     describe "as normal user" do
-      
       before do
         log_in user
         visit users_path
@@ -19,16 +17,19 @@ describe "User pages" do
       it { should_not have_link('Delete User') }
       it { should_not have_link('Edit User') }
       it { should_not have_link('New User') }
+      it { should_not have_link('All Users', href: users_path) }
+      it { should_not have_link('Call In Hours', href: call_in_hours_path) }
     end
 
     describe "as admin user" do
-
       before do
         log_in admin
         visit users_path
       end
 
       it { should have_selector('title', text: 'All Users') }
+      it { should have_link('Call In Hours', href: call_in_hours_path) }
+      it { should have_link('All Users', href: users_path) }
       it { should have_link("#{user.first_name} #{user.last_name}", href: user_path(user)) }
       it { should have_link('New User', href: new_user_path) }
       it { should have_link('Edit User', href: edit_user_path(user)) }
@@ -36,14 +37,12 @@ describe "User pages" do
       it "should be able to delete another user" do
         expect { click_link('Delete User') }.to change(User, :count).by(-1)
       end
+
       it { should_not have_link('Delete User', href: user_path(admin)) }
-
     end
-
   end
 
   describe "show" do
-
     describe "as normal user" do
       
       before do
@@ -71,16 +70,13 @@ describe "User pages" do
       it "should be able to delete another user" do
         expect { click_link('Delete User') }.to change(User, :count).by(-1)
       end
+
       it { should_not have_link('Delete User', href: user_path(admin)) }
-
     end
-
   end
 
   describe "new" do
-
     describe "as normal user" do
-      
       before do
         log_in user
         visit new_user_path
@@ -105,9 +101,5 @@ describe "User pages" do
       it { should have_field('Default hourly rate') }
       it { should have_button('Create User') }
     end
-
   end
-
-
-
 end

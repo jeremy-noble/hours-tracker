@@ -11,6 +11,10 @@ class Entry < ActiveRecord::Base
 
   default_scope :order => 'date DESC'
 
+  def hours_only?
+    
+  end
+
   private
     def default_values
       self.hourly_rate ||= self.time_sheet.user.default_hourly_rate

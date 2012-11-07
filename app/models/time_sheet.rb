@@ -12,9 +12,7 @@ class TimeSheet < ActiveRecord::Base
   def total_hours
     total_hours = 0
     if self.entries
-      self.entries.each do |entry|
-        total_hours = total_hours + entry.hours
-      end
+      total_hours = self.entries.sum(:hours)
     return total_hours
     end
   end
@@ -26,6 +24,18 @@ class TimeSheet < ActiveRecord::Base
         total_cash = total_cash + (entry.hours * entry.hourly_rate)
       end
     return total_cash
+    end
+  end
+
+  def hourly_only?
+    if self.entries
+      self.entries.each do |entry|
+        if entry.time_sheet.user.default_hourly_rate != entry.hourly_rate
+          return false
+        end
+      end
+      # return true if all entries are equal to the default value
+      return true
     end
   end
 

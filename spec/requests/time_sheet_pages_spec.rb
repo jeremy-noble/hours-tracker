@@ -9,7 +9,6 @@ describe "TimeSheet pages" do
   subject { page }
 
   describe "index" do
-
     describe "as normal user" do
       
       before do
@@ -29,7 +28,6 @@ describe "TimeSheet pages" do
     end
 
     describe "as admin user" do
-
       before do
         log_in admin
         visit user_time_sheets_path(user)
@@ -43,13 +41,10 @@ describe "TimeSheet pages" do
       it "should be able to delete time sheet" do
         expect { click_link('Delete Time Sheet') }.to change(TimeSheet, :count).by(-1)
       end
-
     end
-
   end
 
   describe "show" do
-
     describe "as normal user" do
       before do
         log_in user
@@ -83,11 +78,9 @@ describe "TimeSheet pages" do
       end
 
     end
-
   end
 
   describe "edit" do
-
     context "as admin user" do
       before do
         log_in admin
@@ -99,7 +92,6 @@ describe "TimeSheet pages" do
       it { should have_field('Notes') }
 
     end
-    
   end
 
 end

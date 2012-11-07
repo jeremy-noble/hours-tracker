@@ -1,5 +1,7 @@
 require 'spec_helper'
 describe TimeSheet do
+  let!(:normal_user) { FactoryGirl.create(:user) }
+  let!(:admin_user) { FactoryGirl.create(:admin) }
   let(:time_sheet) { FactoryGirl.create(:time_sheet) }
 
   subject { time_sheet }
@@ -69,5 +71,27 @@ describe TimeSheet do
     end 
   end
 
+  describe "when there are time_sheets with custom hourly rates, and only default hourly rates" do
+    before(:each) do
+      @user = FactoryGirl.create(:user, default_hourly_rate: 30)
+      @time_sheet_custom_rates = FactoryGirl.create(:time_sheet, user_id: @user.id)     
+      @entry_1 = FactoryGirl.create(:entry, time_sheet: @time_sheet_custom_rates, hours: 3, hourly_rate: 75)
+      @entry_2 = FactoryGirl.create(:entry, time_sheet: @time_sheet_custom_rates, hours: 11) #should get default hourly_rate from user "30"
+      @entry_3 = FactoryGirl.create(:entry, time_sheet: @time_sheet_custom_rates, hours: 3.5, hourly_rate: 60)
+
+      @time_sheet_default_rates = FactoryGirl.create(:time_sheet, user_id: @user.id)     
+      @entry_4 = FactoryGirl.create(:entry, time_sheet: @time_sheet_default_rates, hours: 3)
+      @entry_5 = FactoryGirl.create(:entry, time_sheet: @time_sheet_default_rates, hours: 11)
+      @entry_6 = FactoryGirl.create(:entry, time_sheet: @time_sheet_default_rates, hours: 3.5)
+    end
+
+    it "time_sheet_default_rates should be hourly only" do
+      @time_sheet_default_rates.hourly_only?.should == true
+    end
+
+    it "time_sheet_custom_rates should be hourly only" do
+      @time_sheet_custom_rates.hourly_only?.should == false
+    end
+  end
 
 end

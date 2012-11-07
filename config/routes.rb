@@ -9,7 +9,7 @@ Hours::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   match '/login',  to: 'sessions#new'
   match '/logout', to: 'sessions#destroy', via: :delete
-  # match '/call_in_hours', to: 'users#call_in_hours'
+  match '/call_in_hours', to: 'call_in_hours#index'
 
   root :to => 'users#index'
 
