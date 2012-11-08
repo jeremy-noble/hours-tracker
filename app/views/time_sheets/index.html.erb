@@ -19,8 +19,8 @@
       <tr>
         <td># <%= time_sheet.id %></td>
         <td><%= nice_date time_sheet.created_at %></td>
-        <td><%= time_sheet.total_hours %></td>
-        <td><%= number_to_currency(time_sheet.total_cash) %></td>
+        <td><%= time_sheet.total_hours if time_sheet.hourly_only? %></td>
+        <td><%= number_to_currency(time_sheet.total_cash) if !time_sheet.hourly_only? %></td>
         <td><%= yesno time_sheet.paid %></td>
         <td>
           <% if can? :read, time_sheet %>
