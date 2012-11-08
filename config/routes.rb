@@ -10,6 +10,7 @@ Hours::Application.routes.draw do
   match '/login',  to: 'sessions#new'
   match '/logout', to: 'sessions#destroy', via: :delete
   match '/call_in_hours', to: 'call_in_hours#index'
+  match '/mark_paid', to: 'call_in_hours#mark_paid', via: :put
 
   root :to => 'users#index'
 

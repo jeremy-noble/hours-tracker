@@ -1,30 +1,46 @@
 <%- model_class = User -%>
 <% provide(:title, 'Call In Hours') %>
-<div class="page-header">
-  <h1>Call In Hours - (All Unpaid Time Sheets)</h1>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Hours</th>
-      <th>Salary</th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @time_sheets.each do |time_sheet| %>
-      <tr>
-        <td><%= link_to "#{time_sheet.user.first_name} #{time_sheet.user.last_name}", user_path(time_sheet.user) %></td>
-        <%#= raise user.time_sheets.inspect %>
-        <td><%= time_sheet.total_hours if time_sheet.hourly_only? %></td>
-        <td><%= number_to_currency(time_sheet.total_cash) if !time_sheet.hourly_only? %></td>
-        <td>
-          <%= link_to 'View Hours', user_time_sheet_entries_path(time_sheet.user, time_sheet), :class => 'btn btn-mini' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<%= link_to 'Mark All Paid', :class => 'btn btn-primary' %>
+<% if @time_sheets.empty? %>
+
+  <div class="page-header">
+    <h3>There are currently no unpaid time sheets.</h3>
+  </div>
+  
+<% else %>
+
+  <div class="page-header">
+    <h1>Call In Hours - (All Unpaid Time Sheets)</h1>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Hours</th>
+        <th>Salary</th>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @time_sheets.each do |time_sheet| %>
+        <tr>
+          <td><%= link_to "#{time_sheet.user.first_name} #{time_sheet.user.last_name}", user_path(time_sheet.user) %></td>
+          <%#= raise user.time_sheets.inspect %>
+          <td><%= time_sheet.total_hours if time_sheet.hourly_only? %></td>
+          <td><%= number_to_currency(time_sheet.total_cash) if !time_sheet.hourly_only? %></td>
+          <td>
+            <%= link_to 'View Hours', user_time_sheet_entries_path(time_sheet.user, time_sheet), :class => 'btn btn-mini' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= form_tag mark_paid_path, method: 'put' do %>
+    <% for time_sheet in @time_sheets %>
+      <%= hidden_field_tag "time_sheet_ids[]", time_sheet.id %>
+    <% end %>
+    <%= submit_tag 'Mark All Paid', :class => 'btn btn-primary' %>
+  <% end %>
+
+<% end %>
