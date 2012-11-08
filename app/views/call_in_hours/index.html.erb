@@ -25,7 +25,6 @@
       <% @time_sheets.each do |time_sheet| %>
         <tr>
           <td><%= link_to "#{time_sheet.user.first_name} #{time_sheet.user.last_name}", user_path(time_sheet.user) %></td>
-          <%#= raise user.time_sheets.inspect %>
           <td><%= time_sheet.total_hours if time_sheet.hourly_only? %></td>
           <td><%= number_to_currency(time_sheet.total_cash) if !time_sheet.hourly_only? %></td>
           <td>
