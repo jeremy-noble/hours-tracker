@@ -27,6 +27,7 @@ describe "Entry pages" do
         it { should have_link('Add New Hours') }
         it { should have_link('Edit') }
         it { should have_link('Delete') }
+        it { should_not have_exact_link('Edit Time Sheet') }
       end
 
       context "on a paid time sheet" do
