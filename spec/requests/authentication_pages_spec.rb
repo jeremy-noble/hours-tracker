@@ -48,6 +48,18 @@ describe "Authentication" do
       let(:time_sheet) { FactoryGirl.create(:time_sheet, user: user) }
       let(:entry) { FactoryGirl.create(:entry, time_sheet: time_sheet) }
 
+      describe "in the call_in_hours controller" do
+        describe "visiting the index page" do
+          before { visit call_in_hours_path }
+          it { should have_selector('title', text: 'Log In') }
+        end
+
+        describe "putting to the mark_paid page" do
+          before { put mark_paid_path }
+          specify { response.should redirect_to(login_path) }
+        end
+      end
+
       describe "in the Users controller" do
         # NOTE: these are just basic tests to make sure users get redirected to login
         # extensive testing for permissions is in spec/models/ability_spec
@@ -126,13 +138,16 @@ describe "Authentication" do
       context "when there is an unpaid time sheet" do
         let!(:time_sheet) { FactoryGirl.create(:time_sheet, user: user) }
         before { log_in user }
-        it { should have_content("Hours for Time Sheet ##{time_sheet.id}") }
+        it { should have_selector('title', text: "Hours for Time Sheet ##{time_sheet.id}")}
       end
 
       context "when there are only paid time sheets" do
-        let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user) }
-        before { log_in user }
-        it { should have_selector('title', text: "Time sheets for #{user.first_name} #{user.last_name}") }
+        let!(:user_with_paid_time_sheets) { FactoryGirl.create(:user) }
+        let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user_with_paid_time_sheets) }
+        it "should increase the TimeSheet count by 1" do
+          expect { log_in user_with_paid_time_sheets }.to change(TimeSheet, :count).by(1)
+        end
+        
       end
 
       describe "click My Account" do
@@ -157,7 +172,9 @@ describe "Authentication" do
       let(:admin_user) { FactoryGirl.create(:admin) }
       before { log_in admin_user }
 
-      it { should have_selector('title', text: 'All Users') }
+      it { should have_selector('title', text: 'Call In Hours') }
+
+      it { should have_link('Call In Hours') }
       it { should have_link('All Users') }
 
       describe "click All Users" do
@@ -168,6 +185,11 @@ describe "Authentication" do
       describe "should allow access to user#index" do
         before { visit users_path }
         it { should_not have_selector('title', text: 'Log In') }
+      end
+
+      describe "click Call In Hours" do
+        before { click_link "Call In Hours" }
+        it { should have_selector('title', text: "Call In Hours") }
       end
 
     end

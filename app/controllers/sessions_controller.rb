@@ -9,14 +9,17 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       if user.admin?
-        redirect_to users_path
+        redirect_to call_in_hours_path
       else
         # if there are un-paid time sheets, redirect to the last unpaid time sheet
-        if user.time_sheets.find_by_paid(false)
-          redirect_to user_time_sheet_entries_path(user, user.time_sheets.find_last_by_paid(false))
+        if user.time_sheets.where(paid: false).count > 0
+          redirect_to user_time_sheet_entries_path(user, user.time_sheets.find_by_paid(false))
         else
-          # otherwise redirect to the time sheets path
-          redirect_to user_time_sheets_path(user)
+          # otherwise create a new time sheet and redirect to it
+          new_time_sheet = TimeSheet.new
+          new_time_sheet.user_id = user.id
+          new_time_sheet.save
+          redirect_to user_time_sheet_entries_path(user, new_time_sheet)
         end
       end
     else

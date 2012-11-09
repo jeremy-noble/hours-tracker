@@ -1,12 +1,12 @@
 class CallInHoursController < ApplicationController
-
+  authorize_resource :class => false
   def index
-    authorize! :index, :call_in_hours
+    # authorize! :index, :call_in_hours
     @time_sheets = TimeSheet.where('time_sheets.paid'=> false).order('created_at desc').joins(:user).order("LOWER(last_name) asc")
   end
 
   def mark_paid
-    authorize! :mark_paid, :call_in_hours
+    # authorize! :mark_paid, :call_in_hours
 
     @time_sheets = TimeSheet.find(params[:time_sheet_ids])
     @time_sheets.each do |time_sheet|
