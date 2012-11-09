@@ -48,7 +48,7 @@ describe 'User' do
       
       describe "with it's own entries" do
         let(:time_sheet){ FactoryGirl.create(:time_sheet, user: current_user) }
-        let(:paid_time_sheet){ FactoryGirl.create(:time_sheet, paid: true, user: current_user) }
+        let(:paid_time_sheet){ FactoryGirl.create(:paid_time_sheet, user: current_user) }
         context "when the time_sheet is not yet paid" do
           it{ should be_able_to(:manage, FactoryGirl.create(:entry, time_sheet: time_sheet)) }
         end

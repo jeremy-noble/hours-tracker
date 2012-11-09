@@ -10,6 +10,7 @@ describe TimeSheet do
   it { should respond_to(:paid) }
   it { should respond_to(:user_id) }
   it { should respond_to(:notes) }
+  it { should respond_to(:date_paid) }
 
   it { should allow_mass_assignment_of(:paid) }
   it { should allow_mass_assignment_of(:notes) }
@@ -91,6 +92,15 @@ describe TimeSheet do
 
     it "time_sheet_custom_rates should be hourly only" do
       @time_sheet_custom_rates.hourly_only?.should == false
+    end
+  end
+
+  describe "when marked paid, date should be today" do
+    before(:each) do
+      time_sheet.mark_paid
+    end
+    it "should have date_paid as today's date" do
+      time_sheet.date_paid.should == Date.today
     end
   end
 

@@ -13,7 +13,11 @@
   <dt><strong><%= model_class.human_attribute_name(:total_hours) %>:</strong></dt>
   <dd><%= @time_sheet.total_hours %></dd>
   <dt><strong><%= model_class.human_attribute_name(:paid) %>:</strong></dt>
-  <dd><%= @time_sheet.paid %></dd>
+  <dd><%= yesno @time_sheet.paid %></dd>
+  <% if @time_sheet.date_paid %>
+    <dt><strong>Date Paid:</strong></dt>
+    <dd><%= @time_sheet.date_paid %></dd>
+  <% end %>
   <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
   <dd><%= @time_sheet.notes %></dd>
 </dl>

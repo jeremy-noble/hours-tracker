@@ -5,7 +5,7 @@ describe "TimeSheet pages" do
   let!(:admin) { FactoryGirl.create(:admin) }
   let!(:time_sheet_hourly) { FactoryGirl.create(:time_sheet_hourly, user: user, notes: 'blah blah these are my notes') }
   let!(:time_sheet_salary) { FactoryGirl.create(:time_sheet_salary, user: user) }
-  let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user) }
+  let!(:paid_time_sheet) { FactoryGirl.create(:paid_time_sheet, user: user) }
 
   subject { page }
 
@@ -54,7 +54,7 @@ describe "TimeSheet pages" do
   end
 
   describe "show" do
-    describe "as normal user" do
+    describe "as normal user on un-paid time sheet" do
       before do
         log_in user
         visit user_time_sheet_path(user, time_sheet_hourly)
@@ -62,6 +62,21 @@ describe "TimeSheet pages" do
 
       it { should_not have_link('Edit') }
       it { should_not have_link('Delete') }
+      it { should have_content('Paid') }
+      it { should have_content('No') }
+    end
+
+    describe "as normal user on paid time sheet" do
+      before do
+        log_in user
+        visit user_time_sheet_path(user, paid_time_sheet)
+      end
+
+      it { should_not have_link('Edit') }
+      it { should_not have_link('Delete') }
+      it { should have_content('Paid') }
+      it { should have_content('Yes') }
+      it { should have_content("#{Date.today}") }
     end
 
     describe "as admin user" do
@@ -77,7 +92,7 @@ describe "TimeSheet pages" do
       it { should have_content('Total hours') }
       it { should have_content("#{time_sheet_hourly.total_hours}") }
       it { should have_content('Paid') }
-      it { should have_content("#{time_sheet_hourly.paid}") }
+      it { should have_content("#{yesno(time_sheet_hourly.paid)}") }
       it { should have_content('Notes') }
       it { should have_content("#{time_sheet_hourly.notes}") }
       it { should have_link('Edit') }

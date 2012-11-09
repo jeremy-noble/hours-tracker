@@ -143,7 +143,7 @@ describe "Authentication" do
 
       context "when there are only paid time sheets" do
         let!(:user_with_paid_time_sheets) { FactoryGirl.create(:user) }
-        let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user_with_paid_time_sheets) }
+        let!(:paid_time_sheet) { FactoryGirl.create(:paid_time_sheet, user: user_with_paid_time_sheets) }
         it "should increase the TimeSheet count by 1" do
           expect { log_in user_with_paid_time_sheets }.to change(TimeSheet, :count).by(1)
         end

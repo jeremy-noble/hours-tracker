@@ -1,5 +1,5 @@
 class TimeSheet < ActiveRecord::Base
-  attr_accessible :paid, :notes
+  attr_accessible :paid, :notes, :date_paid
   belongs_to :user
   has_many :entries
 
@@ -37,6 +37,12 @@ class TimeSheet < ActiveRecord::Base
       # return true if all entries are equal to the default value
       return true
     end
+  end
+
+  def mark_paid
+    self.paid = true
+    self.date_paid = Date.today
+    self.save!
   end
 
   private

@@ -7,7 +7,7 @@ describe "CallInHours pages" do
   let!(:time_sheet_salary) { FactoryGirl.create(:time_sheet_salary, user: user) }
   let!(:time_sheet_hourly_2) { FactoryGirl.create(:time_sheet_hourly, user: user) }
   let!(:time_sheet_salary_2) { FactoryGirl.create(:time_sheet_salary, user: user) }
-  let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user) }
+  let!(:paid_time_sheet) { FactoryGirl.create(:paid_time_sheet, user: user) }
 
   subject { page }
 

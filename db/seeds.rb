@@ -23,7 +23,7 @@ users.each do |user|
 
     # mark all but last "paid"
     if i < 6
-      time_sheet.paid = true
+      time_sheet.mark_paid
     end
 
     time_sheet.save

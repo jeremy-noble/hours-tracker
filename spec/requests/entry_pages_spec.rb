@@ -4,7 +4,7 @@ describe "Entry pages" do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:admin) { FactoryGirl.create(:admin) }
   let!(:time_sheet) { FactoryGirl.create(:time_sheet, user: user) }
-  let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user) }
+  let!(:paid_time_sheet) { FactoryGirl.create(:paid_time_sheet, user: user) }
   let!(:entry) { FactoryGirl.create(:entry, time_sheet: time_sheet) }
   let!(:paid_entry) { FactoryGirl.create(:entry, time_sheet: paid_time_sheet) }
 
@@ -36,6 +36,9 @@ describe "Entry pages" do
         it { should_not have_link('Add New Hours') }
         it { should_not have_exact_link('Edit') }
         it { should_not have_link('Delete') }
+        it { should have_content('Paid') }
+        it { should have_content('Yes') }
+        it { should have_content("#{Date.today}") }
       end
     end
 

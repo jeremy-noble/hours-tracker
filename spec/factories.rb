@@ -16,6 +16,12 @@ FactoryGirl.define do
   factory :time_sheet do
     association :user
 
+    factory :paid_time_sheet do
+      after(:create) do |paid_time_sheet|
+        paid_time_sheet.mark_paid
+      end
+    end
+
     factory :time_sheet_hourly do
       after(:create) do |time_sheet_hourly|
         FactoryGirl.create(:entry, time_sheet: time_sheet_hourly, hours: 10)
