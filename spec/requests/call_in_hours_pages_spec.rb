@@ -2,12 +2,14 @@ require 'spec_helper'
 
 describe "CallInHours pages" do
   let!(:user) { FactoryGirl.create(:user) }
+  let!(:user_2) { FactoryGirl.create(:user, last_name: 'Zed') }
   let!(:admin) { FactoryGirl.create(:admin) }
   let!(:time_sheet_hourly) { FactoryGirl.create(:time_sheet_hourly, user: user, notes: 'blah blah these are my notes') }
   let!(:time_sheet_salary) { FactoryGirl.create(:time_sheet_salary, user: user) }
   let!(:time_sheet_hourly_2) { FactoryGirl.create(:time_sheet_hourly, user: user) }
   let!(:time_sheet_salary_2) { FactoryGirl.create(:time_sheet_salary, user: user) }
   let!(:paid_time_sheet) { FactoryGirl.create(:paid_time_sheet, user: user) }
+  let!(:time_sheet_user_2) { FactoryGirl.create(:time_sheet, user: user_2, created_at: Date.today+200) }
 
   subject { page }
 
@@ -44,6 +46,10 @@ describe "CallInHours pages" do
 
       it { should have_content('49.0') }
       it { should have_content('$4,170.00') }
+
+      it "should have users in proper order" do
+        user.last_name.should appear_before(user_2.last_name)
+      end
 
       context "when Mark All Paid button is pressed" do
         before { click_button 'Mark All Paid' }

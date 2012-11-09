@@ -1,7 +1,7 @@
 class CallInHoursController < ApplicationController
   authorize_resource :class => false
   def index
-    @time_sheets = TimeSheet.where('time_sheets.paid'=> false).order('created_at desc').joins(:user).order("LOWER(last_name) asc")
+    @time_sheets = TimeSheet.unscoped.where('time_sheets.paid'=> false).joins(:user).order("LOWER(last_name) asc, created_at desc")
     
     # calculate total hours and salary for entire time sheet
     @entire_total_hours = 0
