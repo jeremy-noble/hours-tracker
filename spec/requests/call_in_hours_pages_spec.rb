@@ -28,6 +28,10 @@ describe "CallInHours pages" do
       end
 
       it { should have_selector('title', text: 'Call In Hours') }
+      it { should have_content('Hours') }
+      it { should have_content('Salary') }
+      it { should have_content('Hourly Rate') }
+      it { should have_content('$150.00') } #this is factory default
       it { should have_button('Mark All Paid') }
 
       # time_sheet_hourly

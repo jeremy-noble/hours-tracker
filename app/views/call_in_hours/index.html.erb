@@ -17,6 +17,7 @@
       <tr>
         <th>Name</th>
         <th>Hours</th>
+        <th>Hourly Rate</th>
         <th>Salary</th>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
@@ -26,6 +27,7 @@
         <tr>
           <td><%= link_to "#{time_sheet.user.first_name} #{time_sheet.user.last_name}", user_path(time_sheet.user) %></td>
           <td><%= time_sheet.total_hours if time_sheet.hourly_only? %></td>
+          <td><%= number_to_currency(time_sheet.user.default_hourly_rate) if time_sheet.hourly_only? %></td>
           <td><%= number_to_currency(time_sheet.total_cash) if !time_sheet.hourly_only? %></td>
           <td>
             <%= link_to 'View Hours', user_time_sheet_entries_path(time_sheet.user, time_sheet), :class => 'btn btn-mini' %>
@@ -34,8 +36,10 @@
       <% end %>
       <tr>
         <td><b>Total</b></td>
-        <td><%= @entire_total_hours %></td>
-        <td><%= number_to_currency(@entire_total_salary) %></td>
+        <td><b><%= @entire_total_hours %></b></td>
+        <td></td>
+        <td><b><%= number_to_currency(@entire_total_salary) %></b></td>
+        <td></td>
       </tr>
     </tbody>
   </table>
