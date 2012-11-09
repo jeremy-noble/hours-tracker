@@ -5,6 +5,8 @@ describe "CallInHours pages" do
   let!(:admin) { FactoryGirl.create(:admin) }
   let!(:time_sheet_hourly) { FactoryGirl.create(:time_sheet_hourly, user: user, notes: 'blah blah these are my notes') }
   let!(:time_sheet_salary) { FactoryGirl.create(:time_sheet_salary, user: user) }
+  let!(:time_sheet_hourly_2) { FactoryGirl.create(:time_sheet_hourly, user: user) }
+  let!(:time_sheet_salary_2) { FactoryGirl.create(:time_sheet_salary, user: user) }
   let!(:paid_time_sheet) { FactoryGirl.create(:time_sheet, paid: true, user: user) }
 
   subject { page }
@@ -27,12 +29,17 @@ describe "CallInHours pages" do
 
       it { should have_selector('title', text: 'Call In Hours') }
       it { should have_button('Mark All Paid') }
+
       # time_sheet_hourly
-        it { should have_content('24.5') }
-        it { should_not have_content('$3,675.00') }
+      it { should have_content('24.5') }
+      it { should_not have_content('$3,675.00') }
+
       # time_sheet_salary
-        it { should_not have_content('17.5') }
-        it { should have_content('$2,085.00') }
+      it { should_not have_content('17.5') }
+      it { should have_content('$2,085.00') }
+
+      it { should have_content('49.0') }
+      it { should have_content('$4,170.00') }
 
       context "when Mark All Paid button is pressed" do
         before { click_button 'Mark All Paid' }
