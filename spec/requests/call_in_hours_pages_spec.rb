@@ -35,6 +35,7 @@ describe "CallInHours pages" do
       it { should have_content('Hourly Rate') }
       it { should have_content('$150.00') } #this is factory default
       it { should have_button('Mark All Paid') }
+      it { should have_content('No') }
 
       # time_sheet_hourly
       it { should have_content('24.5') }
@@ -44,6 +45,7 @@ describe "CallInHours pages" do
       it { should_not have_content('17.5') }
       it { should have_content('$2,085.00') }
 
+      # totals
       it { should have_content('49.0') }
       it { should have_content('$4,170.00') }
 
@@ -62,8 +64,21 @@ describe "CallInHours pages" do
           saved_time_sheet_1.paid.should == true
           saved_time_sheet_2.paid.should == true
         end
-        it { should have_content 'There are currently no unpaid time sheets.' }
+        it { should have_content "Time Sheets Marked as Paid!" }
+        it { should have_content "#{time_sheet_hourly.user.last_name}" }
+        it { should have_content 'Yes' }
+        # totals
+        it { should have_content('49.0') }
+        it { should have_content('$4,170.00') }
+
+        context "and then call in hours button is pressed again" do
+          before { visit call_in_hours_path }
+          it "should say There are currently no unpaid time sheets." do
+            should have_content "There are currently no unpaid time sheets."
+          end
+        end
       end
+
 
     end
   end

@@ -10,7 +10,7 @@
 <% else %>
 
   <div class="page-header">
-    <h1>Call In Hours - (All Unpaid Time Sheets)</h1>
+    <h1>Call In Hours</h1>
   </div>
   <table class="table table-striped">
     <thead>
@@ -19,6 +19,7 @@
         <th>Hours</th>
         <th>Hourly Rate</th>
         <th>Salary</th>
+        <th>Paid</th>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
       </tr>
     </thead>
@@ -29,6 +30,7 @@
           <td><%= time_sheet.total_hours if time_sheet.hourly_only? %></td>
           <td><%= number_to_currency(time_sheet.user.default_hourly_rate) if time_sheet.hourly_only? %></td>
           <td><%= number_to_currency(time_sheet.total_cash) if !time_sheet.hourly_only? %></td>
+          <td><%= yesno time_sheet.paid %></td>
           <td>
             <%= link_to 'View Hours', user_time_sheet_entries_path(time_sheet.user, time_sheet), :class => 'btn btn-mini' %>
           </td>
@@ -36,9 +38,10 @@
       <% end %>
       <tr>
         <td><b>Total</b></td>
-        <td><b><%= @entire_total_hours %></b></td>
+        <td><b><%= all_total_hours(@time_sheets) %></b></td>
         <td></td>
-        <td><b><%= number_to_currency(@entire_total_salary) %></b></td>
+        <td><b><%= number_to_currency(all_total_salary(@time_sheets)) %></b></td>
+        <td></td>
         <td></td>
       </tr>
     </tbody>
