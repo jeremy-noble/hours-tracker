@@ -70,6 +70,7 @@ describe "CallInHours pages" do
         # totals
         it { should have_content('49.0') }
         it { should have_content('$4,170.00') }
+        it { should_not have_button 'Mark All Paid' }
 
         context "and then call in hours button is pressed again" do
           before { visit call_in_hours_path }

@@ -20,4 +20,13 @@ module CallInHoursHelper
     return all_total_salary
   end
 
+  def all_unpaid_time_sheets?(time_sheets)
+    time_sheets.each do |time_sheet|
+      if time_sheet.paid == true
+        return false
+      end
+    end
+    return true    
+  end
+
 end

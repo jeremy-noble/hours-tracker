@@ -47,11 +47,13 @@
     </tbody>
   </table>
 
-  <%= form_tag mark_paid_path, method: 'put' do %>
-    <% for time_sheet in @time_sheets %>
-      <%= hidden_field_tag "time_sheet_ids[]", time_sheet.id %>
+  <% if all_unpaid_time_sheets?(@time_sheets) %>
+    <%= form_tag mark_paid_path, method: 'put' do %>
+      <% for time_sheet in @time_sheets %>
+        <%= hidden_field_tag "time_sheet_ids[]", time_sheet.id %>
+      <% end %>
+      <%= submit_tag 'Mark All Paid', :class => 'btn btn-primary' %>
     <% end %>
-    <%= submit_tag 'Mark All Paid', :class => 'btn btn-primary' %>
   <% end %>
 
 <% end %>
