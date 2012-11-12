@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jeremykay/hours-tracker.png)](https://travis-ci.org/jeremykay/hours-tracker)
+
 == Hours Tracker App
 
 A simple hours tracker that lets you add users and track their hours worked per day.
