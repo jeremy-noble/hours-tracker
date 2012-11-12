@@ -42,6 +42,7 @@ group :test do
   gem 'growl'
   gem 'rb-fsevent', '~> 0.9.1', :require => false
   gem 'factory_girl_rails', '~> 4.1.0'
+  gem 'rake', '~> 0.9.2.2'
 end
 
 group :production do
