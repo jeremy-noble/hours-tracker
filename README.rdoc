@@ -9,6 +9,7 @@ A simple hours tracker that lets you add users and track their hours worked per 
 * Users can specify a pay rate for hours they add, with a project. Otherwise, it will default to their normal pay rate. (for example worked 5 hours @ $60/hr)
 * The total hours and payment for each time sheet are calculated automatically. 
 * When payroll time comes around the time sheets can be marked as "paid". 
+* When view hours to call in, each time sheet is calculated as 'hourly' or 'salary' depending on if there is a custom hourly rate for that time sheet
 * Allow entry of a pay rate for each project. 
 * Authentication: users can log in and out for their hours with a password. Only "admins" can be able to see all users and mark them as paid.
 * Tested with rspec

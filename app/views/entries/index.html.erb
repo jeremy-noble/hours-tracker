@@ -23,7 +23,8 @@
       <th><%= model_class.human_attribute_name(:hours) %></th>
       <th><%= model_class.human_attribute_name(:project) %></th>
       <th><%= model_class.human_attribute_name(:hourly_rate) %></th>
-        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>Salary</th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
@@ -33,6 +34,7 @@
         <td><%= entry.hours %></td>
         <td><%= entry.project %></td>
         <td><%= number_to_currency(entry.hourly_rate) %></td>
+        <td><%= number_to_currency(entry.hourly_rate * entry.hours) %></td>
         <td>
           <% if can? :update, entry %>
             <%= link_to 'Edit', edit_user_time_sheet_entry_path(@user, @time_sheet, entry), :class => 'btn btn-mini' %>
@@ -50,6 +52,7 @@
     <tr>
       <td><b>Totals</b></td>
       <td><b><%= @time_sheet.total_hours %></b></td>
+      <td></td>
       <td></td>
       <td><b><%= number_to_currency(@time_sheet.total_cash) %></b></td>
       <td></td>
