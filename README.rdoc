@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jeremykay/hours-tracker.png)](https://travis-ci.org/jeremykay/hours-tracker)
+{<img src="https://travis-ci.org/jeremykay/hours-tracker.png.png" />}[https://travis-ci.org/jeremykay/hours-tracker.png]
 
 == Hours Tracker App
 
