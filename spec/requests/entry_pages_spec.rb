@@ -25,6 +25,7 @@ describe "Entry pages" do
       context "on normal time sheet" do
         before { visit user_time_sheet_entries_path(user, time_sheet) }
 
+        it { should have_content("#{user.first_name} #{user.last_name}") }
         it { should have_link('Add New Hours') }
         it { should have_link('Edit') }
         it { should have_link('Delete') }
@@ -55,6 +56,7 @@ describe "Entry pages" do
       context "on normal time sheet" do
         before { visit user_time_sheet_entries_path(user, time_sheet) }
 
+        it { should have_content("#{user.first_name} #{user.last_name}") }
         it { should have_link('Add New Hours') }
         it { should have_link('Edit') }
         it { should have_link('Delete') }
