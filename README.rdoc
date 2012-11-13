@@ -15,6 +15,7 @@ A simple hours tracker that lets you add users and track their hours worked per 
 * Allow entry of a pay rate for each project. 
 * Authentication: users can log in and out for their hours with a password. Only "admins" can be able to see all users and mark them as paid.
 * Tested with rspec
+* 'Turbolinks' gem for extra-speedy page requests
 
 
 = Notes
