@@ -1,4 +1,4 @@
-{<img src="https://secure.travis-ci.org/jeremykay/hours-tracker.png?branch=master" alt="Build Status" />}[https://travis-ci.org/jeremykay/hours-tracker]
+{<img src="https://secure.travis-ci.org/jeremy-noble/hours-tracker.png?branch=master" alt="Build Status" />}[https://travis-ci.org/jeremy-noble/hours-tracker]
 
 == Hours Tracker App
 
